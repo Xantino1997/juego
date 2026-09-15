@@ -421,18 +421,18 @@
    NOTA IMPORTANTE PARA EL PRESENTADOR:
    Estas respuestas fueron completadas por Claude con el mejor
    criterio posible a partir de conocimiento bíblico general y de
-   publicaciones de los Testigos de Jehová. Las preguntas marcadas
-   con "verify:true" son MUY específicas (abreviaturas de
-   publicaciones como T-30/T-37/S-38, títulos de canciones, cifras
-   puntuales) y conviene que el presentador las revise antes de
-   usarlas en el juego real. Podés editar "c" libremente para
+   publicaciones de los Testigos de Jehová. Se quitaron del banco
+   las preguntas demasiado específicas que no se pudieron verificar
+   con certeza (abreviaturas de folletos, letras exactas de
+   canciones, cifras puntuales). Igual, ante la duda, revisá
+   cualquier respuesta con la Biblioteca en Línea Watchtower antes
+   de usarla en el juego real. Podés editar "c" libremente para
    corregir cualquier respuesta.
    ========================================================= */
 const QUESTIONS_TJ = [
 {q:"¿Cómo se conoce a las cuatro letras originales que componen el nombre de Dios en hebreo?",o:["LEVIATAN","TETRAGRAMATON","HELENATRON","MARATON"],c:1},
 {q:"¿Cuáles son las 4 cualidades principales de Jehová?",o:["MISERICORDIA, AMOR, PACIENCIA, AUTODOMINIO","AMOR, PODER, SABIDURIA, JUSTICIA","PODER, LEALTAD, SANTIDAD, JUSTICIA","SANTIDAD, AMOR, BENEVOLENCIA, SABIDURIA"],c:1},
 {q:"¿Qué significa el nombre de Jehová?",o:["EL HACE QUE LLEGUE A SER","EL HACE QUE LOS DEMAS HAGAN","EL HACE POR LOS DEMAS","EL DEJA QUE CADA UNO HAGA"],c:0},
-{q:"¿Cuál de las siguientes afirmaciones sobre Jehová es correcta? Es:",o:["OMNIPRESENTE","OBSOLETO","OMNIPOTENTE","OBSECUENTE"],c:2,verify:true},
 {q:"¿Qué título distingue a Jehová como Dios eterno, majestuoso y venerable Juez de todos?",o:["ANCIANO DE NOCHE","REY DE REYES","JEHOVA DE LOS EJERCITOS","ANCIANO DE DIAS"],c:3},
 {q:"¿Con cuál de estos nombres se lo identifica también a Jesús?",o:["EMMANUEL, RUBEN, LEMUEL","SANTIAGO, JESUS, MARCOS","EMMANUEL, MIGUEL, ADAN","MIGUEL, ABEL, EMMANUEL"],c:2},
 {q:"¿Dónde nació Jesús?",o:["NAZARET","BELEN DE ZABULON","BELEN DE JUDEA","JERUSALEN"],c:2},
@@ -441,7 +441,6 @@ const QUESTIONS_TJ = [
 {q:"¿Qué significa Unigénito?",o:["UNGIDO DE JEHOVÁ","HIJO AMADO","PRIMER HIJO QUE ABRE MATRIZ","EL UNICO HIJO QUE JEHOVA CREO DIRECTAMENTE"],c:3},
 {q:"¿Cuánto dura el reinado milenario de Cristo?",o:["144000","1200 años","1000 años","999 años"],c:2},
 {q:"¿Quiénes gobernarán en el reino de Cristo?",o:["LOS ANGELES","LOS PRINCIPES","JEHOVA Y CRISTO","CRISTO Y LOS 144000"],c:3},
-{q:"¿Qué llegan a ser los ungidos en su vida celestial?",o:["CORRUPTIBLES","AUTORITARIOS","ARISTOCRATAS","AUTARQUICOS"],c:2,verify:true},
 {q:"¿Qué pasa después de los 1000 años?",o:["LA RESURRECCION DE LAS PERSONAS","SE LIBERA A SATANAS","SE DEVUELVE LA PERFECCION","JESUS REGRESA"],c:1},
 {q:"¿A partir de qué año y mes empezó a regir el reino Mesiánico?",o:["OCTUBRE 1914","SEPTIEMBRE 1919","SEPTIEMBRE 1914","NISAN 14"],c:0},
 {q:"¿Cuántos son los frutos del espíritu de Jehová?",o:["3","9","1","5"],c:1},
@@ -481,26 +480,14 @@ const QUESTIONS_TJ = [
 {q:"¿En qué año se completó el libro de 1 Crónicas?",o:["1513 A.E.C.","1945 E.C.","460 A.E.C.","1998 A.E.C."],c:2},
 {q:"¿En qué año se completó el libro de 2 Crónicas?",o:["430 E.C.","460 A.E.C.","1245 A.E.C.","1950 E.C."],c:1},
 {q:"¿En qué año se completó el libro de Génesis? (repaso)",o:["1914 E.C.","1513 A.E.C.","1475 E.C.","460 A.E.C."],c:1},
-{q:"¿A qué publicación hace referencia la abreviación T-37?",o:["Visite jw.org (2014)","Visite jw broadcasting","Visite la biblioteca en línea","Visite Betel"],c:0,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-30?",o:["La Biblia (2013)","La Atalaya","Despertad","Perspicacia"],c:0,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-16?",o:["La Biblia","Razonamiento","Esperanza para los que han muerto (1987)","La familia... ¿puede sobrevivir?"],c:2,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-21?",o:["Familia unida y feliz","Pacífico nuevo mundo","Disfrute de su vida de familia (1998)","¿Por qué estamos aquí?"],c:2,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-33?",o:["¿Quién es el gobernante del mundo?","¿Quién controla el mundo? (2013)","¿Quién es Jehová?","¿Quiénes son los testigos de Jehová?"],c:1,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-36?",o:["Reino (2014)","Religión falsa","¿Rige el destino nuestra vida?","Saber la verdad"],c:0,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación S-38?",o:["Instrucciones para la reunión Vida y Ministerio","Vida feliz","Todas las personas","Saber más de la Biblia"],c:0,verify:true},
-{q:"¿A qué publicación hace referencia la abreviación T-35?",o:["Volver a vivir (2013)","La vida... ¿cómo se presentó aquí?","¿Por qué hay tantos problemas en la vida?","¿Quién es Jesucristo?"],c:0,verify:true},
 {q:"¿A qué publicación hace referencia la abreviación nwt?",o:["Índice","Traducción del Nuevo Mundo","Guía de estudio","Nuestro Ministerio del Reino"],c:1},
-{q:"¿A qué publicación hace referencia la abreviación cl?",o:["Apocalipsis","Amor de Dios","Acercarse a Jehová","Benefíciese"],c:2,verify:true},
 {q:"¿A qué publicación hace referencia la abreviación sjj?",o:["Cantemos con gozo a Jehová (2017)","Conocimiento","Ejemplos de fe","El hombre en busca de Dios"],c:0},
-{q:"¿Cuántas referencias a los pájaros aparecen en la Biblia?",o:["Más de 300","1254","Más de 2500","Ninguna"],c:0,verify:true},
 {q:"¿En qué «día» creativo llegaron a existir los pájaros?",o:["Día 1","Día 3","Día 8","Día 5"],c:3},
 {q:"¿Cuál de estos condimentos se menciona en la Biblia?",o:["Eneldo","El comino","La ruda","Todas las anteriores"],c:3},
 {q:"¿Cuál de estas aves se menciona en la Biblia?",o:["La tórtola","La perdiz","El gorrión","Todas las anteriores"],c:3},
 {q:"¿Qué significa el nombre del valle el Tiropeón?",o:["Queseros","Panaderos","Carniceros","Verduleros"],c:0},
 {q:"¿Qué alimento principal tuvieron los israelitas durante los 40 años en el desierto?",o:["Papas","Carne","Delivery","Maná"],c:3},
 {q:"¿En qué desierto Jehová proveyó el maná por primera vez?",o:["Sin","Sinaí","Dotán","No se menciona en la Biblia"],c:0},
-{q:"¿Cuántas profecías aproximadamente se cumplieron en Jesús?",o:["30","45","No se determina una cifra exacta","144.000"],c:2,verify:true},
-{q:"¿En qué año dejó de utilizarse «Nuestro Ministerio del Reino» en la reunión de semana?",o:["2014","2016","2015","2018"],c:1,verify:true},
 {q:"¿En qué año inició la Noche de Adoración en Familia?",o:["2008","1999","2009","2013"],c:2},
 {q:"¿Qué nombre fue dado a Azarías en el cautiverio de Babilonia?",o:["Belsasar","Abed-nego","Sadrac","No se le cambió"],c:1},
 {q:"¿Cuántos soldados del ejército de Senaquerib mató el ángel de Jehová?",o:["185.000","105.000","195.000","115.000"],c:0},
@@ -519,7 +506,6 @@ const QUESTIONS_TJ = [
 {q:"¿Qué significa el nombre Eva?",o:["Mujer de Adán","Mujer","Alma de mujer","Una viviente"],c:3},
 {q:"¿Quién le puso nombre a Eva?",o:["Los ángeles","Fue por voto popular","Jehová","Adán"],c:3},
 {q:"¿En qué momento del registro bíblico se indica que Adán nombró a su esposa Eva?",o:["Después de ser creada","Después de tener hijos","Luego de despertarse","Después de violar la ley de Dios (Gén. 3:20)"],c:3},
-{q:"¿Qué significa Adán?",o:["Rojo","Humanidad","Persona","Ninguna es correcta"],c:1,verify:true},
 {q:"¿En qué año nació Adán?",o:["13580 A.E.C.","3500 A.E.C.","4026 A.E.C.","No se menciona en la Biblia"],c:2},
 {q:"¿Quién pronunció la primera poesía conocida?",o:["Caín","Abel","Adán","Salomón"],c:2},
 {q:"¿Con qué otro nombre se le conocía a Pablo?",o:["Paulo","Pablito","Saulo","Gamaliel"],c:2},
@@ -541,7 +527,6 @@ const QUESTIONS_TJ = [
 {q:"¿Quién fue Sansón?",o:["Un filisteo","Un hermano de Hércules","Un juez de Israel","Un profeta"],c:2},
 {q:"¿Quién traicionó a Sansón?",o:["Sus hermanos","Dalila","La vecina de al lado","Una prostituta"],c:1},
 {q:"¿Qué relación tenía el pelo largo de Sansón con su fuerza?",o:["La fuerza venía del pelo","Representaba su relación especial con Jehová como nazareo","Tenía una buena hidratación con hierbas","Su fuerza venía de su entrenamiento"],c:1},
-{q:"¿Qué significa posiblemente Dalila?",o:["Mujer de Israel","Colgante","Brazalete","Enviada de los filisteos"],c:1,verify:true},
 {q:"¿Qué significa el nombre Jaquín?",o:["Sacerdote de Jehová","Descendiente de Jehová","Que [Jehová] establezca firmemente","No se puede saber con exactitud"],c:2},
 {q:"¿Quién recibió hospitalariamente a Pablo y Silas en su primer viaje a Macedonia?",o:["Jasón","César","Silas","Bernabé"],c:0},
 {q:"¿Qué edad tenían en el reencuentro los gemelos Jacob y Esaú?",o:["98","88","97","77"],c:2},
@@ -568,8 +553,6 @@ const QUESTIONS_TJ = [
 {q:"¿Cuál de los siguientes corresponde a un mes judío?",o:["Abiatar","Nassan","Nisán","Labam"],c:2},
 {q:"¿A qué hace referencia la palabra waw?",o:["Un instrumento de trabajo","Una letra","Una ciudad filistea","No aparece dicha palabra"],c:1},
 {q:"¿Cuál es el último libro que se escribió de la Biblia?",o:["Mateo","Revelación (Apocalipsis)","Juan","Marcos"],c:1},
-{q:"¿Cuántas resurrecciones menciona la Biblia?",o:["4","8","10","9"],c:3,verify:true},
-{q:"¿Qué título tiene la canción 3 de «Cantemos con gozo»?",o:["Tú me das fe, confianza y valor","Tú me das fuerza, valor y decisión","Tú me das fuerza, confianza y valor","La fe en Jehová da fuerza"],c:2,verify:true},
 {q:"¿Quién alimenta hoy día a los domésticos en sentido espiritual?",o:["Los ancianos","El comité de enlace","El esclavo fiel y prudente","Los ángeles"],c:2},
 {q:"En la parábola del capítulo 25 de Mateo, ¿qué cantidad de vírgenes menciona Jesús?",o:["8","5","10","12"],c:2},
 {q:"¿Qué reemplazó al anuario impreso desde que dejó de publicarse en 2017?",o:["Un video-informe anual","Un folleto trimestral","Ya no se informa nada","Un apéndice de La Atalaya"],c:0},
@@ -586,8 +569,6 @@ const QUESTIONS_TJ = [
 {q:"¿Cuántos capítulos contiene el libro de 1 Reyes?",o:["32","22","15","50"],c:1},
 {q:"¿Cuántos capítulos contiene el libro de Zacarías?",o:["11","14","45","120"],c:1},
 {q:"¿Cómo se llamaba el papá de Juan el Bautista?",o:["Anás","Caifás","Zacarías","No se menciona"],c:2},
-{q:"¿Cómo sigue el estribillo de la canción 151, «Llamaré a los que duermen, ellos me responderán»?",o:["La obra de mis manos eres tú, ¿despierta ya?","Extraño tanto verlos… ese día llegará","Nuestro Dios está anhelante","Volveremos a besarlos"],c:1,verify:true},
-{q:"¿Cómo sigue el estribillo de la canción 139, «Por ti, oh Jehová, mediante Jesús»?",o:["Mi corazón rebosa de felicidad","El reino de Dios nos dará libertad","El nuevo mundo ha visto la luz","Un nuevo mundo ha visto la luz"],c:3,verify:true},
 {q:"¿A qué publicación hace referencia el título en inglés «Insight on the Scriptures»?",o:["Conocimiento de las Escrituras","Despertad de las Escrituras","Perspicacia para comprender las Escrituras","Atalaya en inglés"],c:2}
 ];
 
