@@ -285,6 +285,72 @@
 /* === Admin local (sin backend) === */
   .local-admin-btn{position:fixed;right:12px;bottom:12px;z-index:40;opacity:.42;font-size:11px;padding:7px 10px}
   .local-admin-btn:hover{opacity:1}
+
+  /* === Modal profesional: finalizar partida === */
+  #finish-game-modal{
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    background:rgba(3,5,14,.78);
+  }
+  #finish-game-modal .modal{
+    width:min(92vw,460px);
+    position:relative;
+    overflow:hidden;
+    padding:30px 28px 26px;
+    border-radius:22px;
+    border:1px solid rgba(240,198,91,.24);
+    background:linear-gradient(160deg,#18214c 0%,#0d1432 58%,#090e25 100%);
+    box-shadow:0 30px 90px rgba(0,0,0,.55),inset 0 1px rgba(255,255,255,.05);
+    animation:finishModalIn .2s ease-out;
+  }
+  #finish-game-modal .modal::before{
+    content:"";position:absolute;left:0;right:0;top:0;height:3px;
+    background:linear-gradient(90deg,transparent,var(--gold-400),transparent);
+  }
+  #finish-game-modal .finish-icon{
+    width:58px;height:58px;margin:0 auto 15px;border-radius:18px;
+    display:grid;place-items:center;font-size:27px;
+    color:var(--gold-300);
+    background:rgba(226,177,60,.10);
+    border:1px solid rgba(240,198,91,.22);
+  }
+  #finish-game-modal h2{
+    margin:0;text-align:center;font-size:23px;letter-spacing:-.02em;
+  }
+  #finish-game-modal .finish-copy{
+    max-width:350px;margin:10px auto 24px;text-align:center;
+    color:var(--ink-300);font-size:14px;line-height:1.55;
+  }
+  #finish-game-modal .finish-actions{
+    display:grid;grid-template-columns:1fr 1fr;gap:10px;
+  }
+  #finish-game-modal .finish-actions .btn{
+    width:100%;min-height:46px;margin:0;
+  }
+  #finish-game-modal .modal-close{
+    position:absolute;top:14px;right:14px;
+    width:34px;height:34px;padding:0;margin:0;
+    display:grid;place-items:center;border-radius:10px;
+    border:1px solid rgba(255,255,255,.09);
+    background:rgba(255,255,255,.045);
+    color:var(--ink-300);font-size:17px;line-height:1;
+    cursor:pointer;transition:.18s ease;
+  }
+  #finish-game-modal .modal-close:hover{
+    color:#fff;background:rgba(255,255,255,.09);
+    border-color:rgba(240,198,91,.24);
+  }
+  @keyframes finishModalIn{
+    from{opacity:0;transform:translateY(10px) scale(.98)}
+    to{opacity:1;transform:none}
+  }
+  @media(max-width:520px){
+    #finish-game-modal{padding:16px}
+    #finish-game-modal .modal{padding:28px 18px 20px;border-radius:19px}
+    #finish-game-modal .finish-actions{grid-template-columns:1fr}
+    #finish-game-modal .finish-actions .danger{order:-1}
+  }
+
 </style>
 </head>
 <body>
@@ -1403,35 +1469,39 @@ function closeFinishGameModal(){
 }
 function finishGameEarlyConfirmed(){
   closeFinishGameModal();
-  try{
-    clearInterval(timerInterval);
-    if(typeof state !== "undefined"){
-      state.timerRunning=false;
-      state.answered=false;
-      state.tiebreak=null;
-    }
-    localStorage.removeItem(STATE_KEY);
-  }catch(_){}
+  try{ clearInterval(timerInterval); }catch(_){}
+
+  // Reinicia completamente la partida y vuelve a la pantalla inicial real.
+  state = freshState();
+  localStorage.removeItem(STATE_KEY);
+
   const startBtn=document.getElementById("start-timer-btn");
-  if(startBtn){ startBtn.style.display="inline-block"; startBtn.disabled=false; }
+  if(startBtn){
+    startBtn.style.display="inline-block";
+    startBtn.disabled=false;
+    startBtn.textContent="▶ Iniciar tiempo";
+  }
   const nextBtn=document.getElementById("next-btn");
-  if(nextBtn){ nextBtn.style.display="none"; }
-  if(typeof goTo==="function") goTo("screen-home");
-  else location.reload();
+  if(nextBtn) nextBtn.style.display="none";
+
+  // Restablece selecciones visuales de una partida anterior.
+  document.querySelectorAll(".time-opt").forEach(el=>el.classList.remove("selected"));
+  const timeNext=document.getElementById("time-next");
+  if(timeNext) timeNext.disabled=true;
+
+  goTo("screen-mode");
 }
 </script>
 
 
 <!-- MODAL FINALIZAR PARTIDA -->
-<div class="modal-bg" id="finish-game-modal" role="dialog" aria-modal="true" aria-labelledby="finish-game-title">
+<div class="modal-bg" id="finish-game-modal" role="dialog" aria-modal="true" aria-labelledby="finish-game-title" onclick="if(event.target===this) closeFinishGameModal()">
   <div class="modal">
-    <button class="modal-close" type="button" onclick="closeFinishGameModal()" aria-label="Cerrar">✕</button>
-    <div style="font-size:42px;text-align:center;margin-bottom:8px">⏹️</div>
-    <h2 id="finish-game-title" style="text-align:center">¿Finalizar la partida?</h2>
-    <p class="muted" style="text-align:center;margin:10px 0 20px">
-      Vas a volver al inicio y se perderá el progreso de esta partida.
-    </p>
-    <div class="footer-actions" style="justify-content:center">
+    <button class="modal-close" type="button" onclick="closeFinishGameModal()" aria-label="Cerrar">×</button>
+    <div class="finish-icon" aria-hidden="true">■</div>
+    <h2 id="finish-game-title">Finalizar partida</h2>
+    <p class="finish-copy">¿Seguro que querés terminar el juego? Vas a volver al inicio y se perderá el progreso de esta partida.</p>
+    <div class="finish-actions">
       <button class="btn secondary" type="button" onclick="closeFinishGameModal()">Seguir jugando</button>
       <button class="btn danger" type="button" onclick="finishGameEarlyConfirmed()">Finalizar juego</button>
     </div>
