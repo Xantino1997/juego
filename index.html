@@ -282,39 +282,9 @@
     .score-chip{min-width:0}
     .footer-actions .btn{flex:1}
   }
-
-
-  /* === Preguntas visuales (solo Conocimiento General) === */
-  .question-image-wrap{
-    display:none; margin:0 0 18px; border-radius:16px; overflow:hidden;
-    border:1px solid rgba(240,198,91,.28); background:#090e25;
-    box-shadow:0 16px 34px -24px rgba(0,0,0,.9);
-  }
-  .question-image-wrap.active{display:block}
-  .question-image{
-    display:block; width:100%; height:clamp(210px,42vw,360px);
-    object-fit:cover; object-position:center;
-  }
-  .question-image-credit{
-    padding:8px 12px; color:var(--ink-500); font-size:11px; line-height:1.35;
-    background:rgba(7,11,26,.96);
-  }
-  @media(max-width:560px){
-    .question-image{height:220px}
-    .question-image-wrap{border-radius:12px;margin-bottom:14px}
-  }
-
-
-  /* === Admin local (sin backend) === */
+/* === Admin local (sin backend) === */
   .local-admin-btn{position:fixed;right:12px;bottom:12px;z-index:40;opacity:.42;font-size:11px;padding:7px 10px}
   .local-admin-btn:hover{opacity:1}
-
-
-  /* Corrección imágenes remotas PC + móvil */
-  .question-image-wrap.active{display:block!important;width:100%;max-width:760px;margin:0 auto 18px}
-  .question-image{display:block!important;width:100%!important;max-width:100%;height:auto!important;max-height:420px;object-fit:contain!important;background:#090e25}
-  @media(max-width:560px){.question-image-wrap.active{margin-bottom:14px}.question-image{max-height:280px}}
-
 </style>
 </head>
 <body>
@@ -416,11 +386,7 @@
         <div class="timer" id="timer-display">--</div>
       </div>
     </div>
-    <div class="question-image-wrap" id="question-image-wrap">
-      <img class="question-image" id="question-image" alt="" loading="eager">
-      <div class="question-image-credit" id="question-image-credit"></div>
-    </div>
-    <div class="question-box">
+<div class="question-box">
       <h2><span class="qnum" id="q-number">Q1</span><span id="q-text"></span></h2>
     </div>
     <div class="options" id="options-grid"></div>
@@ -644,35 +610,7 @@ const QUESTIONS_TJ = [
 const QUESTIONS_GK = [
 
 // === Más preguntas visuales variadas: ciencia, animales, símbolos, geografía y arte ===
-{q:"¿A qué constante matemática corresponde este símbolo?",o:["Número áureo","Pi","Constante de Euler","Infinito"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Pi-symbol.svg",imgAlt:"Símbolo pi",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
-{q:"¿Qué concepto matemático representa este símbolo?",o:["Igualdad","Infinito","Raíz cuadrada","Porcentaje"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Infinity_symbol.svg",imgAlt:"Símbolo de infinito",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
-{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/e/ea/African_lion_animal.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/6/68/Giraffen.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Elefante.jpg/960px-Elefante.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué planeta aparece representado en la imagen?",o:["Marte","Júpiter","Venus","Mercurio"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",imgAlt:"Júpiter",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
-{q:"¿Qué planeta es conocido como el planeta rojo?",o:["Venus","Saturno","Marte","Neptuno"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/OSIRIS_Mars_true_color.jpg",imgAlt:"Marte",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
-{q:"¿Qué planeta aparece en la imagen con sus característicos anillos?",o:["Saturno","Urano","Júpiter","Neptuno"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_during_Equinox.jpg",imgAlt:"Saturno",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
-{q:"¿Qué cuerpo celeste aparece en la imagen?",o:["La Luna","Marte","Venus","Mercurio"],c:0,img:"https://www.infobae.com/resizer/v2/TN4MYFNVYNEORNWY4E7DVKBV4M.jpg?auth=f8c54c568baaa0641b63a36a10171813b7da437d8f4585fc17bb496942f089ea&smart=true&width=1200&height=900&quality=85",imgAlt:"Luna llena",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué científico aparece en este famoso retrato?",o:["Isaac Newton","Albert Einstein","Nikola Tesla","Charles Darwin"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Albert_Einstein_Head.jpg",imgAlt:"Albert Einstein",credit:"Imagen: Wikimedia Commons · dominio público"},
-{q:"¿Qué científico aparece en la imagen?",o:["Charles Darwin","Galileo Galilei","Louis Pasteur","Thomas Edison"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Charles_Darwin_seated_crop.jpg",imgAlt:"Charles Darwin",credit:"Imagen: Wikimedia Commons · dominio público"},
-{q:"¿Qué inventor aparece en este retrato?",o:["Nikola Tesla","Alexander Graham Bell","Thomas Edison","James Watt"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/N.Tesla.JPG",imgAlt:"Nikola Tesla",credit:"Imagen: Wikimedia Commons · dominio público"},
-{q:"¿Qué artista pintó esta obra?",o:["Leonardo da Vinci","Vincent van Gogh","Pablo Picasso","Claude Monet"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",imgAlt:"La noche estrellada",credit:"Obra en dominio público · Wikimedia Commons"},
-{q:"¿Cómo se llama esta famosa pintura?",o:["La joven de la perla","La Mona Lisa","El nacimiento de Venus","Las meninas"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",imgAlt:"Mona Lisa",credit:"Obra en dominio público · Wikimedia Commons"},
-{q:"¿Qué instrumento musical aparece en la imagen?",o:["Violín","Violonchelo","Guitarra","Mandolina"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Violin_VL100.png",imgAlt:"Violín",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué instrumento aparece en la imagen?",o:["Piano","Acordeón","Órgano","Xilófono"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Steinway_Vienna_002.JPG",imgAlt:"Piano",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué letra del alfabeto griego aparece representada?",o:["Alfa","Beta","Gamma","Omega"],c:3,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrQxUwcuepvJWPMRtH-dpxL2TqKqVJLz8FkF1q5f3U3Q&s=10",imgAlt:"Letra griega omega",credit:"Imagen: Wikimedia Commons · símbolo tipográfico"},
-{q:"¿Qué símbolo químico corresponde al oro?",o:["Ag","Au","Fe","O"],c:1,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGAHLJ1mvieb3_pBqVkxkU3xrNWGgjeHkSuTDtJnKxng&s=10",imgAlt:"Oro",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué país representa esta bandera?",o:["Argentina","Uruguay","Grecia","Guatemala"],c:0,img:"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/1280px-Flag_of_Argentina.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail",imgAlt:"Bandera de Argentina",credit:"Imagen: Wikimedia Commons · dominio público"},
-{q:"¿Qué país representa esta bandera?",o:["Italia","México","Hungría","Irlanda"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Italy.svg",imgAlt:"Bandera de Italia",credit:"Imagen: Wikimedia Commons · dominio público"},
-
-
 // === Preguntas visuales — imágenes públicas (CC0 / dominio público) de Wikimedia Commons ===
-{q:"¿En qué país se encuentra este famoso monumento?",o:["Brasil","Argentina","Francia","Italia"],c:2,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/La_tour_Eiffel2013.jpg/960px-La_tour_Eiffel2013.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Dmitriy Tsvetcoff / Wikimedia Commons · CC BY-SA 3.0"},
-{q:"¿En qué país se encuentra este monumento?",o:["México","Brasil","Portugal","Argentina"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Christ_the_redeemer.jpg/960px-Christ_the_redeemer.jpg",imgAlt:"Cristo Redentor",credit:"Imagen: Wikimedia Commons · dominio público"},
-{q:"¿En qué país se encuentra este monumento?",o:["Canadá","Estados Unidos","Reino Unido","Australia"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Statue_of_Liberty_frontal_2_crop.JPG/960px-Statue_of_Liberty_frontal_2_crop.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Daniel Schwen / Wikimedia Commons · licencia libre"},
-{q:"¿Qué monumento aparece en la imagen?",o:["Big Ben","Torre Eiffel","Torre de Pisa","Empire State"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/La_tour_Eiffel2013.jpg/960px-La_tour_Eiffel2013.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Dmitriy Tsvetcoff / Wikimedia Commons · CC BY-SA 3.0"},
-{q:"¿Qué monumento aparece en la imagen?",o:["Cristo Redentor","Estatua de la Libertad","David de Miguel Ángel","Coloso de Rodas"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Statue_of_Liberty_frontal_2_crop.JPG/960px-Statue_of_Liberty_frontal_2_crop.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Daniel Schwen / Wikimedia Commons · licencia libre"},
-
 {q:"¿Qué instrumento tiene 88 teclas?",o:["Violín","Piano","Arpa","Acordeón"],c:1},
 {q:"¿Quién compuso «Las Cuatro Estaciones»?",o:["Mozart","Bach","Vivaldi","Beethoven"],c:2},
 {q:"¿Cuál fue la primera banda de los Beatles antes del nombre definitivo?",o:["The Quarrymen","The Rolling Stones","The Kinks","The Shadows"],c:0},
@@ -1187,26 +1125,6 @@ function runTiebreakQuestion(){
     `⚖️ Desempate — ${playerObj.name} · Pregunta ${qi+1}/${TIEBREAK_QUESTIONS_PER_PLAYER}`;
   document.getElementById('q-number').textContent = `DESEMPATE`;
   document.getElementById("q-text").textContent = q.q;
-
-  const imageWrap = document.getElementById("question-image-wrap");
-  const imageEl = document.getElementById("question-image");
-  const imageCredit = document.getElementById("question-image-credit");
-  if(q.img){
-    imageEl.src = q.img;
-    imageEl.alt = q.imgAlt || "Imagen de la pregunta";
-    imageCredit.textContent = q.credit || "Imagen pública";
-    imageWrap.classList.add("active");
-    imageEl.style.display = "block";
-    imageEl.onerror = () => {
-      imageEl.style.display = "none";
-      imageCredit.textContent = "No se pudo cargar esta imagen.";
-    };
-  }else{
-    imageWrap.classList.remove("active");
-    imageEl.removeAttribute("src");
-    imageEl.alt = "";
-    imageCredit.textContent = "";
-  }
 
   document.getElementById('timer-display').textContent = TIEBREAK_SECONDS;
   document.getElementById('timer-display').classList.remove('low');
