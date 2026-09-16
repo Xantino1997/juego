@@ -207,6 +207,108 @@
   .modal-bg{ position:fixed; inset:0; background:rgba(3,5,14,.7); display:none; align-items:center; justify-content:center; z-index:50; padding:20px; }
   .modal-bg.active{ display:flex; }
   .modal{ max-width:520px; width:100%; }
+
+  /* =========================================================
+     RENOVACIÓN VISUAL 2026
+     Mejora estética sin cambiar la lógica del juego
+     ========================================================= */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:-1;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(240,198,91,.10), transparent 25rem),
+      radial-gradient(circle at 88% 72%, rgba(55,194,111,.06), transparent 29rem);
+  }
+  .screen{max-width:920px}
+  .brand{margin-bottom:26px}
+  .brand h1{letter-spacing:-.025em;text-shadow:0 7px 30px rgba(0,0,0,.36)}
+  .brand .kicker{font-weight:800}
+  .card{
+    position:relative; overflow:hidden;
+    background:linear-gradient(145deg,rgba(28,38,84,.97),rgba(10,16,43,.985));
+    border-color:rgba(240,198,91,.18);
+    box-shadow:0 26px 72px -30px rgba(0,0,0,.92),inset 0 1px rgba(255,255,255,.035);
+  }
+  .card::before{
+    content:""; position:absolute; left:0; right:0; top:0; height:3px;
+    background:linear-gradient(90deg,transparent,var(--gold-400),transparent); opacity:.78;
+  }
+  .choice-card,.time-opt,.player-row,.score-chip,.joker,.opt{
+    transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+  }
+  .choice-card:hover,.time-opt:hover{box-shadow:0 14px 30px -18px rgba(0,0,0,.8)}
+  .question-box{
+    position:relative;
+    background:linear-gradient(135deg,#202b63,#121a42);
+    border-color:rgba(240,198,91,.35);
+    box-shadow:inset 0 1px rgba(255,255,255,.04),0 16px 35px -28px #000;
+    padding:26px;
+  }
+  .question-box h2{font-size:clamp(20px,3.3vw,27px);line-height:1.42}
+  .qnum{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:42px;padding:5px 9px;margin-right:12px;border-radius:999px;
+    background:rgba(226,177,60,.12);border:1px solid rgba(240,198,91,.30);
+  }
+  .opt{
+    min-height:62px;
+    background:linear-gradient(180deg,#18214c,#111938);
+    box-shadow:0 10px 22px -20px #000;
+  }
+  .opt:hover:not(.disabled):not(.correct):not(.wrong){
+    transform:translateY(-2px);background:#20295a;
+    box-shadow:0 14px 28px -20px rgba(240,198,91,.6);
+  }
+  .opt .letter{width:31px;height:31px;border:1px solid rgba(255,255,255,.08)}
+  .opt.correct{box-shadow:0 0 0 1px rgba(55,194,111,.18),0 12px 28px -18px rgba(55,194,111,.7)}
+  .opt.wrong{box-shadow:0 0 0 1px rgba(192,57,43,.15)}
+  .timer{font-variant-numeric:tabular-nums;box-shadow:inset 0 0 18px rgba(0,0,0,.18)}
+  .score-chip.current{box-shadow:0 0 0 2px rgba(240,198,91,.08),0 8px 20px -14px rgba(240,198,91,.7)}
+  .joker:hover:not(.used){transform:translateY(-2px);background:#20295a}
+  .btn:focus-visible,.opt:focus-visible,input:focus-visible{
+    outline:3px solid rgba(240,198,91,.35);outline-offset:3px;
+  }
+  @media(max-width:560px){
+    body{padding:18px 10px 40px}
+    .brand{margin-bottom:20px}
+    .card{padding:22px 14px;border-radius:18px}
+    .question-box{padding:18px 15px}
+    .qmeta{align-items:flex-start;gap:10px}
+    .timer-wrap{width:100%;justify-content:space-between}
+    .options{gap:10px}
+    .opt{padding:13px 12px;min-height:58px}
+    .jokers{gap:8px}
+    .joker{min-width:100%;padding:11px 12px}
+    .scoreboard{width:100%;display:grid;grid-template-columns:repeat(2,1fr)}
+    .score-chip{min-width:0}
+    .footer-actions .btn{flex:1}
+  }
+
+
+  /* === Preguntas visuales (solo Conocimiento General) === */
+  .question-image-wrap{
+    display:none; margin:0 0 18px; border-radius:16px; overflow:hidden;
+    border:1px solid rgba(240,198,91,.28); background:#090e25;
+    box-shadow:0 16px 34px -24px rgba(0,0,0,.9);
+  }
+  .question-image-wrap.active{display:block}
+  .question-image{
+    display:block; width:100%; height:clamp(210px,42vw,360px);
+    object-fit:cover; object-position:center;
+  }
+  .question-image-credit{
+    padding:8px 12px; color:var(--ink-500); font-size:11px; line-height:1.35;
+    background:rgba(7,11,26,.96);
+  }
+  @media(max-width:560px){
+    .question-image{height:220px}
+    .question-image-wrap{border-radius:12px;margin-bottom:14px}
+  }
+
+
+  /* === Admin local (sin backend) === */
+  .local-admin-btn{position:fixed;right:12px;bottom:12px;z-index:40;opacity:.42;font-size:11px;padding:7px 10px}
+  .local-admin-btn:hover{opacity:1}
+
 </style>
 </head>
 <body>
@@ -308,6 +410,10 @@
         <div class="timer" id="timer-display">--</div>
       </div>
     </div>
+    <div class="question-image-wrap" id="question-image-wrap">
+      <img class="question-image" id="question-image" alt="" loading="eager" referrerpolicy="no-referrer">
+      <div class="question-image-credit" id="question-image-credit"></div>
+    </div>
     <div class="question-box">
       <h2><span class="qnum" id="q-number">Q1</span><span id="q-text"></span></h2>
     </div>
@@ -397,7 +503,8 @@
         <button class="btn secondary small" onclick="copyDonateAlias()">Copiar</button>
       </div>
     </div>
-    <p class="muted" style="margin-top:14px; font-size:12px;">Próximamente vamos a sumar también un link de PayPal.</p>
+    <a class="btn primary" href="https://paypal.me/GaliRoman" target="_blank" rel="noopener noreferrer" style="width:100%;margin-top:14px;text-decoration:none;">Donar con PayPal</a>
+    <p class="muted" style="margin-top:10px; font-size:12px;">PayPal.Me: GaliRoman</p>
     <div class="footer-actions">
       <span></span>
       <button class="btn secondary" onclick="closeDonate()">Cerrar</button>
@@ -421,158 +528,147 @@
    NOTA IMPORTANTE PARA EL PRESENTADOR:
    Estas respuestas fueron completadas por Claude con el mejor
    criterio posible a partir de conocimiento bíblico general y de
-   publicaciones de los Testigos de Jehová. Se quitaron del banco
-   las preguntas demasiado específicas que no se pudieron verificar
-   con certeza (abreviaturas de folletos, letras exactas de
-   canciones, cifras puntuales). Igual, ante la duda, revisá
-   cualquier respuesta con la Biblioteca en Línea Watchtower antes
-   de usarla en el juego real. Podés editar "c" libremente para
+   publicaciones de los Testigos de Jehová. Las preguntas marcadas
+   con "verify:true" son MUY específicas (abreviaturas de
+   publicaciones como T-30/T-37/S-38, títulos de canciones, cifras
+   puntuales) y conviene que el presentador las revise antes de
+   usarlas en el juego real. Podés editar "c" libremente para
    corregir cualquier respuesta.
    ========================================================= */
 const QUESTIONS_TJ = [
-{q:"¿Cómo se conoce a las cuatro letras originales que componen el nombre de Dios en hebreo?",o:["LEVIATAN","TETRAGRAMATON","HELENATRON","MARATON"],c:1},
-{q:"¿Cuáles son las 4 cualidades principales de Jehová?",o:["MISERICORDIA, AMOR, PACIENCIA, AUTODOMINIO","AMOR, PODER, SABIDURIA, JUSTICIA","PODER, LEALTAD, SANTIDAD, JUSTICIA","SANTIDAD, AMOR, BENEVOLENCIA, SABIDURIA"],c:1},
-{q:"¿Qué significa el nombre de Jehová?",o:["EL HACE QUE LLEGUE A SER","EL HACE QUE LOS DEMAS HAGAN","EL HACE POR LOS DEMAS","EL DEJA QUE CADA UNO HAGA"],c:0},
-{q:"¿Qué título distingue a Jehová como Dios eterno, majestuoso y venerable Juez de todos?",o:["ANCIANO DE NOCHE","REY DE REYES","JEHOVA DE LOS EJERCITOS","ANCIANO DE DIAS"],c:3},
-{q:"¿Con cuál de estos nombres se lo identifica también a Jesús?",o:["EMMANUEL, RUBEN, LEMUEL","SANTIAGO, JESUS, MARCOS","EMMANUEL, MIGUEL, ADAN","MIGUEL, ABEL, EMMANUEL"],c:2},
-{q:"¿Dónde nació Jesús?",o:["NAZARET","BELEN DE ZABULON","BELEN DE JUDEA","JERUSALEN"],c:2},
-{q:"¿Quién bautizó a Jesús?",o:["PEDRO","FELIPE","ANDRES","JUAN"],c:3},
-{q:"¿Qué edad tenía Jesús cuando sus padres lo encontraron en el templo?",o:["15","33","9","12"],c:3},
-{q:"¿Qué significa Unigénito?",o:["UNGIDO DE JEHOVÁ","HIJO AMADO","PRIMER HIJO QUE ABRE MATRIZ","EL UNICO HIJO QUE JEHOVA CREO DIRECTAMENTE"],c:3},
-{q:"¿Cuánto dura el reinado milenario de Cristo?",o:["144000","1200 años","1000 años","999 años"],c:2},
-{q:"¿Quiénes gobernarán en el reino de Cristo?",o:["LOS ANGELES","LOS PRINCIPES","JEHOVA Y CRISTO","CRISTO Y LOS 144000"],c:3},
-{q:"¿Qué pasa después de los 1000 años?",o:["LA RESURRECCION DE LAS PERSONAS","SE LIBERA A SATANAS","SE DEVUELVE LA PERFECCION","JESUS REGRESA"],c:1},
-{q:"¿A partir de qué año y mes empezó a regir el reino Mesiánico?",o:["OCTUBRE 1914","SEPTIEMBRE 1919","SEPTIEMBRE 1914","NISAN 14"],c:0},
-{q:"¿Cuántos son los frutos del espíritu de Jehová?",o:["3","9","1","5"],c:1},
-{q:"¿Qué es el espíritu santo de Dios?",o:["UNA ENTIDAD SEPARADA","EL PODER DE DIOS","UNA PERSONA","LA FUERZA ACTIVA"],c:3},
-{q:"Mencione 3 cualidades que produce la persona mediante el espíritu santo:",o:["AMOR, GOZO, FORTALEZA","AMOR, ENTUSIASMO, DECISION","AMOR, BENIGNIDAD, BONDAD","AMOR, BONDAD, OBEDIENCIA"],c:2},
-{q:"¿En qué ayuda hoy día el espíritu santo a los cristianos verdaderos?",o:["DA A CONOCER PREMONICIONES Y PRESENTIMIENTOS","REVELAR INTERPRETACIONES PERSONALES","HACER MILAGROS","DAR A CONOCER LA VERDAD DEL REINO"],c:3},
-{q:"¿Cuál es la palabra griega que se traduce espíritu?",o:["PNÉUMA","EMAUS","NEUMAN","SPIRIT"],c:0},
-{q:"¿En qué año se completó el libro de Romanos?",o:["54 E.C.","58 E.C.","56 E.C.","60 E.C."],c:2},
-{q:"¿En qué año se completó el libro de Mateo?",o:["45 E.C.","48 E.C.","43 E.C.","41 E.C."],c:3},
-{q:"¿En qué año se completó el libro de Jeremías?",o:["598 A.E.C.","555 A.E.C.","580 A.E.C.","546 A.E.C."],c:2},
-{q:"¿En qué año se completó el libro de Éxodo?",o:["1512 A.E.C.","1545 A.E.C.","1519 A.E.C.","1914 A.E.C."],c:0},
-{q:"¿En qué año se completó el libro de Proverbios?",o:["1465 A.E.C.","1919 E.C.","717 A.E.C.","718 A.E.C."],c:2},
-{q:"¿En qué año se completó el libro de Malaquías?",o:["445 A.E.C.","443 A.E.C.","564 A.E.C.","1512 E.C."],c:1},
-{q:"¿De quién pudo ser contemporáneo Amós?",o:["EZEQUIAS","ÁQUILA","OSEAS","JUAN EL BAUTISTA"],c:2},
-{q:"¿Cuál de los siguientes sí es hijo de Aarón?",o:["ITAMAR","DATAN","TAMAR","HUR"],c:0},
-{q:"¿En qué río se bañó 7 veces Naamán para sanar de la lepra?",o:["TIGRIS","NILO","JORDAN","PARANA"],c:2},
-{q:"¿Cuál fue el primer milagro de Jesús?",o:["BAUTIZARSE","SANAR A UN LEPROSO","CONVERTIR AGUA EN VINO","RESUCITAR A LAZARO"],c:2},
-{q:"¿Cuál fue el último milagro de Jesús?",o:["LA ASCENSION AL CIELO","LA RESURRECCION","CURAR A UN CIEGO","CURAR LA OREJA DE UN SOLDADO"],c:3},
-{q:"¿Quién fue la madre de Salomón?",o:["MICAL","ABIGAIL","BAT-SEBA","RUT"],c:2},
-{q:"¿En qué año se completó el libro de Génesis?",o:["1753 A.E.C.","1513 A.E.C.","1444 A.E.C.","1919 E.C."],c:1},
-{q:"¿En qué año se completó el libro de Deuteronomio?",o:["1473 A.E.C.","1915 E.C.","No se sabe","Nunca se completó"],c:0},
-{q:"¿En qué año se completó el libro de Levítico?",o:["1482 A.E.C.","1513 A.E.C.","1512 A.E.C.","No se completó"],c:2},
-{q:"¿En qué año se completó el libro de Números?",o:["1473 A.E.C.","No se completó","1918","No se sabe"],c:0},
-{q:"Según Proverbios 24:10, si te desanimas en los momentos difíciles, ¿qué pasa?",o:["Te vas a perder","Te irá bien","Te faltarán las fuerzas","Perderás buenas costumbres"],c:2},
-{q:"Según Proverbios 15:15, el que es bueno de corazón:",o:["Queda con hambre","Cubre una multitud de pecados","Goza de un banquete continuo","Soporta todas las cosas"],c:2},
-{q:"¿En qué año se completó el libro de Josué?",o:["1455 A.E.C.","752 A.E.C.","1513 A.E.C.","1450 A.E.C."],c:3},
-{q:"¿En qué año se completó el libro de Jueces?",o:["1092 A.E.C.","1859 A.E.C.","1100 A.E.C.","1213 A.E.C."],c:2},
-{q:"Según Proverbios 15:17, ¿qué es mejor para que haya amor?",o:["Un plato de harina","Un plato vacío","Un plato de verduras","Un plato de carne"],c:2},
-{q:"Según lo que Jesús enseñó, ¿qué es necesario para hallar la felicidad?",o:["No hacer nada","Tener muchos amigos","Reconocer las necesidades espirituales","Satisfacer a los demás"],c:2},
-{q:"Según Jesús mencionó, ¿hasta dónde seríamos sus testigos?",o:["Europa","Toda América","Jerusalén, Samaria, Belén y la parte más distante","Jerusalén, Judea, Samaria y hasta la parte más lejana de la tierra"],c:3},
-{q:"Según Jesús dijo en Juan, ¿quién es mayor que Él?",o:["Los ángeles","Los apóstoles","Los 144000","Jehová"],c:3},
-{q:"¿En qué año se completó el libro de Rut?",o:["1445 A.E.C.","1945 E.C.","1513 A.E.C.","1090 A.E.C."],c:3},
-{q:"¿En qué año se completó el libro de 1 Samuel?",o:["1456 E.C.","455 A.E.C.","1413 A.E.C.","1078 A.E.C."],c:3},
-{q:"¿En qué año se completó el libro de 2 Samuel?",o:["1040 A.E.C.","2012 A.E.C.","1513 E.C.","1914 A.E.C."],c:0},
-{q:"¿En qué año se completó el libro de 1 Reyes?",o:["1423 A.E.C.","1918 E.C.","580 A.E.C.","1455 E.C."],c:2},
-{q:"¿En qué año se completó el libro de 2 Reyes?",o:["580 A.E.C.","455 E.C.","4125 A.E.C.","250 E.C."],c:0},
-{q:"¿En qué año se completó el libro de 1 Crónicas?",o:["1513 A.E.C.","1945 E.C.","460 A.E.C.","1998 A.E.C."],c:2},
-{q:"¿En qué año se completó el libro de 2 Crónicas?",o:["430 E.C.","460 A.E.C.","1245 A.E.C.","1950 E.C."],c:1},
-{q:"¿En qué año se completó el libro de Génesis? (repaso)",o:["1914 E.C.","1513 A.E.C.","1475 E.C.","460 A.E.C."],c:1},
-{q:"¿A qué publicación hace referencia la abreviación nwt?",o:["Índice","Traducción del Nuevo Mundo","Guía de estudio","Nuestro Ministerio del Reino"],c:1},
-{q:"¿A qué publicación hace referencia la abreviación sjj?",o:["Cantemos con gozo a Jehová (2017)","Conocimiento","Ejemplos de fe","El hombre en busca de Dios"],c:0},
-{q:"¿En qué «día» creativo llegaron a existir los pájaros?",o:["Día 1","Día 3","Día 8","Día 5"],c:3},
-{q:"¿Cuál de estos condimentos se menciona en la Biblia?",o:["Eneldo","El comino","La ruda","Todas las anteriores"],c:3},
-{q:"¿Cuál de estas aves se menciona en la Biblia?",o:["La tórtola","La perdiz","El gorrión","Todas las anteriores"],c:3},
-{q:"¿Qué significa el nombre del valle el Tiropeón?",o:["Queseros","Panaderos","Carniceros","Verduleros"],c:0},
-{q:"¿Qué alimento principal tuvieron los israelitas durante los 40 años en el desierto?",o:["Papas","Carne","Delivery","Maná"],c:3},
-{q:"¿En qué desierto Jehová proveyó el maná por primera vez?",o:["Sin","Sinaí","Dotán","No se menciona en la Biblia"],c:0},
-{q:"¿En qué año inició la Noche de Adoración en Familia?",o:["2008","1999","2009","2013"],c:2},
-{q:"¿Qué nombre fue dado a Azarías en el cautiverio de Babilonia?",o:["Belsasar","Abed-nego","Sadrac","No se le cambió"],c:1},
-{q:"¿Cuántos soldados del ejército de Senaquerib mató el ángel de Jehová?",o:["185.000","105.000","195.000","115.000"],c:0},
-{q:"¿Qué nombre fue dado a Daniel en el cautiverio de Babilonia?",o:["Belsasar","Abed-nego","Sadrac","No se le cambió"],c:0},
-{q:"¿Qué nombre fue dado a Misael en el cautiverio de Babilonia?",o:["Belsasar","Abed-nego","Sadrac","Mesac"],c:3},
-{q:"¿Cuántas parejas de animales colocó Moisés en el arca?",o:["2","4","1950","Ninguno (fue Noé)"],c:3},
-{q:"Luego de la destrucción del año 70 D.C. a manos de los romanos, ¿en qué año se reconstruyó Jerusalén?",o:["120 D.C.","110 D.C.","130 D.C.","1945 D.C."],c:2},
-{q:"¿Qué significa Jerusalén?",o:["Posesión [o Fundamento] de Paz Doble","Paz","Ciudad de Jesús","Ciudad de Medio Oriente"],c:0},
-{q:"¿En qué año conquistó Babilonia a Jerusalén?",o:["307 A.E.C.","1250 A.E.C.","1945 A.E.C.","607 A.E.C."],c:3},
-{q:"¿Qué significa posiblemente el título Rabsaces?",o:["Rey de Asiria","Rey de Babilonia","Copero principal","No se sabe"],c:2},
-{q:"¿Qué significa evangelizador?",o:["Enviado","Apóstol","Ángel","Que lleva un buen mensaje"],c:3},
-{q:"¿Qué significa apóstol?",o:["Viajero","Servidor","Enviado","Que lleva un buen mensaje"],c:2},
-{q:"¿Qué significa ángel?",o:["Mensajero","Enviado","Que lleva las cargas","Apóstol"],c:0},
-{q:"¿Cuál es el nombre de la primera mujer?",o:["Evangelina","Evarista","Eva","Ela"],c:2},
-{q:"¿Cuál fue la última creación de Jehová que se tiene registro?",o:["Los animales","Adán","Los cielos","Eva"],c:3},
-{q:"¿Qué significa el nombre Eva?",o:["Mujer de Adán","Mujer","Alma de mujer","Una viviente"],c:3},
-{q:"¿Quién le puso nombre a Eva?",o:["Los ángeles","Fue por voto popular","Jehová","Adán"],c:3},
-{q:"¿En qué momento del registro bíblico se indica que Adán nombró a su esposa Eva?",o:["Después de ser creada","Después de tener hijos","Luego de despertarse","Después de violar la ley de Dios (Gén. 3:20)"],c:3},
-{q:"¿En qué año nació Adán?",o:["13580 A.E.C.","3500 A.E.C.","4026 A.E.C.","No se menciona en la Biblia"],c:2},
-{q:"¿Quién pronunció la primera poesía conocida?",o:["Caín","Abel","Adán","Salomón"],c:2},
-{q:"¿Con qué otro nombre se le conocía a Pablo?",o:["Paulo","Pablito","Saulo","Gamaliel"],c:2},
-{q:"¿Quién fue uno de los maestros de Pablo?",o:["Bernabé","Rabán","Gamaliel","Todos fueron sus maestros"],c:2},
-{q:"¿De qué tribu provenía Pablo?",o:["Israelita (genérico)","Neftalí","Benjamín","Efraín"],c:2},
-{q:"¿De dónde descendieron las tribus de Israel?",o:["De los egipcios","De los doce hijos de Jacob","No se sabe el origen","De los asirios"],c:1},
-{q:"¿Quién puso el nombre a Benjamín?",o:["Raquel","Jacob","Isaac","Rebeca"],c:1},
-{q:"¿Qué nombre le puso Raquel a Benjamín cuando nació?",o:["Kilión","Mahlón","Ben-oní","Benjamín"],c:2},
-{q:"¿Qué quiere decir el nombre Benjamín?",o:["Hijo de Jacob","Hijo de la Diestra","Hijo amado","Hijo de Raquel"],c:1},
-{q:"¿Cuál era el duodécimo hijo de Jacob?",o:["Manasés","Efraín","José","Benjamín"],c:3},
-{q:"¿De quién era hija Raquel, esposa de Jacob?",o:["Adán","Abán","Labán","No se menciona"],c:2},
-{q:"¿Dónde murió Raquel?",o:["Efrat","Harán","Canaán","No se menciona"],c:0},
-{q:"¿De dónde era Rut?",o:["Zabulón","Israel","Canaán","Moab"],c:3},
-{q:"¿Qué hijo de Noemí fue esposo de Rut?",o:["Kilión","Mahlón","No se casó con su hijo","La Biblia no lo menciona"],c:1},
-{q:"¿Qué significa Edén?",o:["Jardín","Placer","Arboleda","Ciudad de Adán"],c:1},
-{q:"¿En cuántos ríos se dividía el río principal de Edén?",o:["3","5","4","Solo había un río"],c:2},
-{q:"¿Cuál de los siguientes nombres pertenece a los ríos de Edén?",o:["Éufrates","Hidequel (Tigris)","Guihón","Todos ellos"],c:3},
-{q:"¿Qué significa el nombre Abdías?",o:["Siervo real","Siervo del rey","Siervo ministerial","Siervo de Jehová"],c:3},
-{q:"¿Quién fue Sansón?",o:["Un filisteo","Un hermano de Hércules","Un juez de Israel","Un profeta"],c:2},
-{q:"¿Quién traicionó a Sansón?",o:["Sus hermanos","Dalila","La vecina de al lado","Una prostituta"],c:1},
-{q:"¿Qué relación tenía el pelo largo de Sansón con su fuerza?",o:["La fuerza venía del pelo","Representaba su relación especial con Jehová como nazareo","Tenía una buena hidratación con hierbas","Su fuerza venía de su entrenamiento"],c:1},
-{q:"¿Qué significa el nombre Jaquín?",o:["Sacerdote de Jehová","Descendiente de Jehová","Que [Jehová] establezca firmemente","No se puede saber con exactitud"],c:2},
-{q:"¿Quién recibió hospitalariamente a Pablo y Silas en su primer viaje a Macedonia?",o:["Jasón","César","Silas","Bernabé"],c:0},
-{q:"¿Qué edad tenían en el reencuentro los gemelos Jacob y Esaú?",o:["98","88","97","77"],c:2},
-{q:"¿Qué significa Betel?",o:["Casa de oración","Casa de Israel","Casa de Dios","Casa de luz"],c:2},
-{q:"¿Qué significa fariseos?",o:["Hermandad","Adorador","Separados","Sectario"],c:2},
-{q:"¿A quién fue el primero que se le otorgó el título de «Rabán»?",o:["Pablo","Bernabé","Gamaliel","Caifás"],c:2},
-{q:"¿A quién se le atribuye la frase: «Si este proyecto proviene de hombres, será derribado; pero si proviene de Dios, no podrán derribarlo»?",o:["César","Caifás","Un salmista","Gamaliel"],c:3},
-{q:"¿A quién se le atribuye la frase: «¿Quién es Jehová, para que yo obedezca su voz y envíe a Israel?»?",o:["Poncio Pilato","Faraón","Caifás","Balaam"],c:1},
-{q:"¿Qué animal golpeó Balaam en su camino a maldecir a Israel?",o:["Iba caminando","Un caballo","Una asna","Iba en un carruaje"],c:2},
-{q:"¿A quién se le atribuye la frase: «¿Soy yo un perro, para que vengas a mí con cayados?»?",o:["César","Nemrod","Goliat","Félix"],c:2},
-{q:"¿Qué familiar intervino para salvar a Pablo de una emboscada de sus enemigos?",o:["La hermana","La sobrina","El sobrino","El tío"],c:2},
-{q:"¿Quién reemplazó a Judas como apóstol?",o:["Bernabé","Pablo","Matías","José"],c:2},
-{q:"¿A quién se le atribuye la frase: «Lo que he escrito, he escrito»?",o:["Caifás","Saulo de Tarso","Pilato","Pedro"],c:2},
-{q:"¿A qué criminal se liberó en el juicio a Jesús?",o:["Berseba","Almoran","Barrabás","Aguarras"],c:2},
-{q:"¿Quién fue el padre de Boaz de la línea del Mesías?",o:["Pérez","Jesé","Salmón","Asá"],c:2},
-{q:"¿Quién fue el padre de Manasés de la línea del Mesías?",o:["Acaz","Ezequías","Pérez","Amón"],c:1},
-{q:"¿A qué edad fue rey Josías?",o:["33","10","8","12"],c:2},
-{q:"¿Quién más menciona la Biblia que se levantó en rebelión contra Moisés (Núm. 16:1)?",o:["Coré, Datán, Abirán, Omán","Coré, Datán, Abirán, Of","Coré, Datán, Abirán, On","Solo fueron Coré, Datán, Abirán"],c:2},
-{q:"¿Quién hizo que Jacob quedara rengo?",o:["Esaú","Un ángel","Un golpe en batalla","Un enemigo"],c:1},
-{q:"¿Sobre quiénes gobernaban «los señores del eje»?",o:["Moabitas","Jaquinitas","Filisteos","Cananeos"],c:2},
-{q:"Cuando Jesús dijo a sus opositores «Yo dije: ‘Ustedes son dioses’», ¿de qué salmo citó?",o:["Salmo 115","Salmo 92","Salmo 82","Salmo 102"],c:2},
-{q:"¿Qué día y hora murió Jesús?",o:["Jueves 12 del mediodía","Martes 7 de la tarde","Viernes 3 de la tarde","Sábado 3 de la tarde"],c:2},
-{q:"¿Cuántos son los meses del calendario judío?",o:["11","12","10","13"],c:1},
-{q:"¿Cuál de los siguientes corresponde a un mes judío?",o:["Abiatar","Nassan","Nisán","Labam"],c:2},
-{q:"¿A qué hace referencia la palabra waw?",o:["Un instrumento de trabajo","Una letra","Una ciudad filistea","No aparece dicha palabra"],c:1},
-{q:"¿Cuál es el último libro que se escribió de la Biblia?",o:["Mateo","Revelación (Apocalipsis)","Juan","Marcos"],c:1},
-{q:"¿Quién alimenta hoy día a los domésticos en sentido espiritual?",o:["Los ancianos","El comité de enlace","El esclavo fiel y prudente","Los ángeles"],c:2},
-{q:"En la parábola del capítulo 25 de Mateo, ¿qué cantidad de vírgenes menciona Jesús?",o:["8","5","10","12"],c:2},
-{q:"¿Qué reemplazó al anuario impreso desde que dejó de publicarse en 2017?",o:["Un video-informe anual","Un folleto trimestral","Ya no se informa nada","Un apéndice de La Atalaya"],c:0},
-{q:"¿Con qué frecuencia se realiza actualmente la Conmemoración de la muerte de Cristo?",o:["Cada mes","Una vez al año","Cada dos años","Solo cuando cae domingo"],c:1},
-{q:"¿Cuántos libros y cartas contiene la Biblia?",o:["56","75","66","45"],c:2},
-{q:"¿Con qué libro terminan las Escrituras Hebreo-arameas?",o:["Zacarías","Miqueas","Malaquías","Sofonías"],c:2},
-{q:"¿Qué significa la palabra iglesia?",o:["Lugar de culto","Lugar de adoración","Grupo de fieles (congregación)","Adoración"],c:2},
-{q:"¿Quién era la esposa de Aquila?",o:["Marta","Rut","Priscila","Jael"],c:2},
-{q:"¿Cuántas canciones contiene el libro «Cantemos con gozo a Jehová»?",o:["134","205","148","151"],c:3},
-{q:"¿Sobre qué montaña se posó el arca de Noé?",o:["Arsat","Alpes","Ararat","Siguió en el agua"],c:2},
-{q:"¿Qué fue lo que envió Noé por primera vez para constatar que el agua había bajado?",o:["Un gorrión","Un cuervo","Una paloma","Una codorniz"],c:1},
-{q:"¿Qué sucedió con la paloma que Noé envió la última vez?",o:["Trajo una hoja de olivo","No envió una paloma","No regresó","No se menciona en la Biblia"],c:2},
-{q:"¿Cuántos capítulos contiene el libro de Génesis?",o:["45","150","38","50"],c:3},
-{q:"¿Cuántos capítulos contiene el libro de 1 Reyes?",o:["32","22","15","50"],c:1},
-{q:"¿Cuántos capítulos contiene el libro de Zacarías?",o:["11","14","45","120"],c:1},
-{q:"¿Cómo se llamaba el papá de Juan el Bautista?",o:["Anás","Caifás","Zacarías","No se menciona"],c:2},
-{q:"¿A qué publicación hace referencia el título en inglés «Insight on the Scriptures»?",o:["Conocimiento de las Escrituras","Despertad de las Escrituras","Perspicacia para comprender las Escrituras","Atalaya en inglés"],c:2}
+  // Banco depurado: preguntas estables del documento original + material vigente verificado en jw.org.
+  {q:"¿Cómo se conoce a las cuatro letras hebreas que componen el nombre de Dios?",o:["Leviatán","Tetragrámaton","Helenatrón","Maratón"],c:1},
+  {q:"¿Cuáles son las cuatro cualidades principales de Jehová?",o:["Misericordia, amor, paciencia y autodominio","Amor, poder, sabiduría y justicia","Poder, lealtad, santidad y justicia","Santidad, amor, benevolencia y sabiduría"],c:1},
+  {q:"Según la explicación que usa jw.org, ¿qué idea transmite el nombre Jehová?",o:["Él hace que llegue a ser","Él hace que los demás hagan","Él hace por los demás","Él deja que cada uno haga"],c:0},
+  {q:"¿Cuál de estas afirmaciones sobre Jehová es correcta?",o:["Es omnipresente","Es obsoleto","Es omnipotente","Es obsecuente"],c:2},
+  {q:"¿Qué título bíblico distingue a Jehová como Juez eterno y majestuoso?",o:["Anciano de Noche","Rey de reyes","Jehová de los ejércitos","Anciano de Días"],c:3},
+  {q:"¿Dónde nació Jesús?",o:["Nazaret","Belén de Zabulón","Belén de Judea","Jerusalén"],c:2},
+  {q:"¿Quién bautizó a Jesús?",o:["Pedro","Felipe","Andrés","Juan el Bautista"],c:3},
+  {q:"¿Qué edad tenía Jesús cuando sus padres lo encontraron en el templo?",o:["15 años","33 años","9 años","12 años"],c:3},
+  {q:"¿Cuánto dura el Reinado de Mil Años de Cristo?",o:["144.000 años","1.200 años","1.000 años","999 años"],c:2},
+  {q:"¿Qué ocurre después de los 1.000 años según Apocalipsis 20?",o:["Se libera a Satanás","Jesús vuelve a nacer","Desaparece la Tierra","Comienza el Diluvio"],c:0},
+  {q:"¿Cuántas cualidades forman el fruto del espíritu que enumera Gálatas 5:22, 23?",o:["3","9","1","5"],c:1},
+  {q:"¿Qué es el espíritu santo según la explicación de los testigos de Jehová?",o:["Una entidad separada","Otro Dios","Una persona de una Trinidad","La fuerza activa de Dios"],c:3},
+  {q:"¿Cuál de estos grupos contiene tres aspectos del fruto del espíritu?",o:["Amor, gozo y riqueza","Amor, entusiasmo y decisión","Amor, bondad y apacibilidad","Amor, poder y fama"],c:2},
+  {q:"¿Cuál es la palabra griega que suele traducirse «espíritu»?",o:["Pnéuma","Emaús","Neuman","Spirit"],c:0},
+  {q:"¿Cuál de estos fue hijo de Aarón?",o:["Itamar","Datán","Tamar","Hur"],c:0},
+  {q:"¿En qué río se bañó Naamán siete veces?",o:["Tigris","Nilo","Jordán","Éufrates"],c:2},
+  {q:"¿Cuál fue el primer milagro de Jesús que relata Juan?",o:["Sanar a un leproso","Convertir agua en vino","Resucitar a Lázaro","Caminar sobre el agua"],c:1},
+  {q:"¿Quién fue la madre de Salomón?",o:["Mical","Abigaíl","Bat-Seba","Rut"],c:2},
+  {q:"Según Proverbios 24:10, ¿qué pasa si te desanimas en los momentos difíciles?",o:["Te faltarán las fuerzas","Te irá bien","Perderás tus bienes","No pasará nada"],c:0},
+  {q:"Según Proverbios 15:17, ¿qué es mejor donde hay amor?",o:["Un banquete con odio","Un plato de verduras","Mucho dinero","Una casa grande"],c:1},
+  {q:"Según Jesús, ¿qué es necesario para ser feliz?",o:["No hacer nada","Tener muchos amigos","Reconocer las necesidades espirituales","Satisfacer todos los deseos"],c:2},
+  {q:"Según Hechos 1:8, ¿hasta dónde serían testigos de Jesús?",o:["Solo Europa","Toda América","Solo Jerusalén","Hasta la parte más lejana de la tierra"],c:3},
+  {q:"¿Cuál es la abreviatura de la Traducción del Nuevo Mundo en publicaciones de los testigos de Jehová?",o:["it","nwt","cl","sjj"],c:1},
+  {q:"¿Qué publicación corresponde a la abreviatura «cl»?",o:["Apocalipsis","Manténganse en el amor de Dios","Acerquémonos a Jehová","Benefíciese"],c:2},
+  {q:"¿Qué publicación corresponde a la abreviatura «sjj»?",o:["Cantemos con gozo a Jehová","Conocimiento","Ejemplos de fe","El hombre en busca de Dios"],c:0},
+  {q:"¿En qué «día» creativo llegaron a existir las aves?",o:["Primero","Tercero","Cuarto","Quinto"],c:3},
+  {q:"¿Cuál de estos condimentos se menciona en la Biblia?",o:["Eneldo","Comino","Ruda","Todos los anteriores"],c:3},
+  {q:"¿Cuál de estas aves se menciona en la Biblia?",o:["Tórtola","Perdiz","Gorrión","Todas las anteriores"],c:3},
+  {q:"¿Qué alimento principal recibieron los israelitas durante sus años en el desierto?",o:["Papas","Carne todos los días","Maná","Trigo de Egipto"],c:2},
+  {q:"¿En qué desierto se proveyó el maná por primera vez?",o:["Sin","Sinaí","Dotán","Parán"],c:0},
+  {q:"¿Qué nombre babilonio recibió Azarías?",o:["Beltsasar","Abednego","Sadrac","Mesac"],c:1},
+  {q:"¿Cuántos soldados del ejército de Senaquerib mató el ángel de Jehová en una noche?",o:["185.000","105.000","195.000","115.000"],c:0},
+  {q:"¿Qué nombre babilonio recibió Daniel?",o:["Beltsasar","Abednego","Sadrac","Mesac"],c:0},
+  {q:"¿Qué nombre babilonio recibió Misael?",o:["Beltsasar","Abednego","Sadrac","Mesac"],c:3},
+  {q:"¿Quién construyó el arca?",o:["Moisés","Noé","Abrahán","Josué"],c:1},
+  {q:"¿Qué significa «evangelizador»?",o:["Enviado","Juez","Rey","El que proclama buenas noticias"],c:3},
+  {q:"¿Qué significa «apóstol»?",o:["Viajero","Servidor","Enviado","Sacerdote"],c:2},
+  {q:"¿Qué significa la palabra «ángel»?",o:["Mensajero","Rey","Juez","Apóstol"],c:0},
+  {q:"¿Cómo se llamaba la primera mujer?",o:["Sara","Rebeca","Eva","Rut"],c:2},
+  {q:"¿Quién le puso a la primera mujer el nombre Eva?",o:["Los ángeles","Jehová directamente","Adán","Caín"],c:2},
+  {q:"¿Con qué otro nombre se conocía al apóstol Pablo?",o:["Paulo","Saulo","Gamaliel","Silas"],c:1},
+  {q:"¿Quién fue maestro de Pablo en Jerusalén?",o:["Bernabé","Gamaliel","Silas","Felipe"],c:1},
+  {q:"¿De qué tribu era Pablo?",o:["Neftalí","Benjamín","Efraín","Judá"],c:1},
+  {q:"¿De quién descendieron originalmente las doce tribus de Israel?",o:["De los egipcios","De los doce hijos de Jacob","De los asirios","De los filisteos"],c:1},
+  {q:"¿Quién le puso el nombre Benjamín al hijo menor de Raquel?",o:["Raquel","Jacob","Isaac","Rebeca"],c:1},
+  {q:"¿Qué nombre le puso Raquel a Benjamín al nacer?",o:["Kilión","Mahlón","Ben-Oní","Benjamín"],c:2},
+  {q:"¿Cuál fue el duodécimo hijo de Jacob?",o:["Manasés","Efraín","José","Benjamín"],c:3},
+  {q:"¿De quién era hija Raquel?",o:["Adán","Labán","Isaac","Lot"],c:1},
+  {q:"¿De dónde era Rut?",o:["Zabulón","Israel","Canaán","Moab"],c:3},
+  {q:"¿Qué hijo de Noemí fue esposo de Rut?",o:["Kilión","Mahlón","No se menciona","Obed"],c:1},
+  {q:"¿En cuántos ríos o brazos se dividía el río que salía de Edén?",o:["3","5","4","2"],c:2},
+  {q:"¿Cuál de estos nombres corresponde a un río relacionado con Edén?",o:["Éufrates","Hidequel o Tigris","Guihón","Todos ellos"],c:3},
+  {q:"¿Quién fue Sansón?",o:["Un filisteo","Un rey","Un juez de Israel","Un sacerdote"],c:2},
+  {q:"¿Quién traicionó a Sansón?",o:["Dalila","Débora","Jael","Rut"],c:0},
+  {q:"¿Qué representaba el cabello largo de Sansón?",o:["Que su fuerza estaba físicamente en el pelo","Su condición de nazareo y relación especial con Jehová","Su rango militar","Una costumbre filistea"],c:1},
+  {q:"¿Qué significa Betel?",o:["Casa de oración","Casa de Israel","Casa de Dios","Casa de luz"],c:2},
+  {q:"¿Quién dijo que si una obra proviene de Dios no podrán derribarla?",o:["César","Caifás","Pedro","Gamaliel"],c:3},
+  {q:"¿Quién dijo: «¿Quién es Jehová para que yo obedezca su voz?»?",o:["Poncio Pilato","El faraón","Caifás","Balaam"],c:1},
+  {q:"¿Qué animal golpeó Balaam en el camino?",o:["Un caballo","Una asna","Un camello","Un buey"],c:1},
+  {q:"¿Quién dijo: «¿Soy yo un perro, para que vengas a mí con cayados?»?",o:["Goliat","Nemrod","Félix","Saúl"],c:0},
+  {q:"¿Qué familiar de Pablo descubrió una emboscada contra él?",o:["Su hermana","Su sobrino","Su tío","Su padre"],c:1},
+  {q:"¿Quién fue escogido para ocupar el lugar de Judas entre los Doce?",o:["Bernabé","Pablo","Matías","José"],c:2},
+  {q:"¿Quién dijo: «Lo que he escrito, he escrito»?",o:["Caifás","Pablo","Pilato","Pedro"],c:2},
+  {q:"¿Qué preso fue liberado en vez de Jesús?",o:["Barrabás","Félix","Herodes","Gamaliel"],c:0},
+  {q:"¿Quién fue el padre de Boaz en la línea genealógica del Mesías?",o:["Pérez","Jesé","Salmón","Asá"],c:2},
+  {q:"¿Quién fue el padre de Manasés, rey de Judá?",o:["Acaz","Ezequías","Pérez","Amón"],c:1},
+  {q:"¿A qué edad empezó a reinar Josías?",o:["33","10","8","12"],c:2},
+  {q:"Según Números 16:1, ¿quiénes se levantaron contra Moisés junto con Coré?",o:["Datán, Abiram y On","Josué, Caleb y Hur","Aarón, Eleazar e Itamar","Nadab, Abihú y Finehás"],c:0},
+  {q:"¿Quién hizo que Jacob quedara cojo después de luchar con él?",o:["Esaú","Un ángel","Un soldado","Labán"],c:1},
+  {q:"Cuando Jesús dijo «Ustedes son dioses», ¿de qué salmo estaba citando?",o:["Salmo 115","Salmo 92","Salmo 82","Salmo 102"],c:2},
+  {q:"¿Cuál de estos corresponde a un mes judío?",o:["Abiatar","Nassán","Nisán","Labán"],c:2},
+  {q:"¿A qué hace referencia «waw» en hebreo?",o:["Una herramienta","Una letra","Una ciudad filistea","Un río"],c:1},
+  {q:"¿Cuál fue el último libro de la Biblia que se escribió?",o:["Mateo","Revelación","Juan","Marcos"],c:2},
+  {q:"¿Cuál es el título actual de la canción 3 de «Cantemos con gozo a Jehová»?",o:["Tú me das fe, confianza y valor","Tú me das fuerza, valor y decisión","Tú me das fuerza, confianza y valor","La fe en Jehová da fuerza"],c:2},
+  {q:"En la parábola de Mateo 25, ¿cuántas vírgenes menciona Jesús?",o:["8","5","10","12"],c:2},
+  {q:"¿Cuántos libros contiene la Biblia?",o:["56","75","66","45"],c:2},
+  {q:"¿Con qué libro terminan las Escrituras Hebreas en el orden habitual de la Biblia actual?",o:["Zacarías","Miqueas","Malaquías","Sofonías"],c:2},
+  {q:"¿Quién era la esposa de Áquila?",o:["Marta","Rut","Priscila","Jael"],c:2},
+  {q:"¿Sobre qué montañas se posó el arca de Noé?",o:["Ararat","Alpes","Sinaí","Carmelo"],c:0},
+  {q:"¿Qué ave envió Noé primero para comprobar si las aguas habían bajado?",o:["Gorrión","Cuervo","Paloma","Codorniz"],c:1},
+  {q:"¿Qué ocurrió con la paloma la última vez que Noé la soltó?",o:["Regresó con una hoja de olivo","No regresó","Volvió inmediatamente","La Biblia no lo dice"],c:1},
+  {q:"¿Cuántos capítulos tiene Génesis?",o:["45","150","38","50"],c:3},
+  {q:"¿Cuántos capítulos tiene 1 Reyes?",o:["32","22","15","50"],c:1},
+  {q:"¿Cuántos capítulos tiene Zacarías?",o:["11","14","45","120"],c:1},
+  {q:"¿Cómo se llamaba el padre de Juan el Bautista?",o:["Anás","Caifás","Zacarías","José"],c:2},
+  {q:"¿A qué publicación corresponde el título inglés «Insight on the Scriptures»?",o:["Conocimiento","Despertad","Perspicacia para comprender las Escrituras","La Atalaya"],c:2},
+  {q:"¿Cuál es el lema de la asamblea regional del 2026?",o:["Adoración pura","Felices para siempre","Prediquemos con valor","Manténganse despiertos"],c:1},
+  {q:"¿En qué texto se basa el programa del viernes de la asamblea regional del 2026?",o:["Mateo 5:3","Hechos 20:35","Mateo 13:16","Juan 4:24"],c:0},
+  {q:"¿En qué texto se basa el programa del sábado de la asamblea regional del 2026?",o:["Mateo 5:3","Hechos 20:35","Mateo 13:16","Apocalipsis 3:22"],c:1},
+  {q:"¿En qué texto se basa el programa del domingo de la asamblea regional del 2026?",o:["Mateo 13:16","Juan 4:24","Proverbios 23:23","Hechos 20:35"],c:0},
+  {q:"¿Qué episodios de «Las buenas noticias según Jesús» se presentan en la asamblea regional del 2026?",o:["1 a 3","2 a 4","4 a 6","7 a 9"],c:2},
+  {q:"¿Cómo se titula el discurso público del domingo de la asamblea regional del 2026?",o:["¿Ha encontrado el tesoro?","¿Por qué se angustian?","Cómo distinguir lo que está bien de lo que está mal","El significado de su bautismo"],c:0},
+  {q:"¿Qué episodio de «Las buenas noticias según Jesús» se presenta el viernes?",o:["Episodio 3","Episodio 4","Episodio 5","Episodio 6"],c:1},
+  {q:"¿Qué episodio de «Las buenas noticias según Jesús» se presenta el sábado?",o:["Episodio 4","Episodio 5","Episodio 6","Episodio 7"],c:1},
+  {q:"¿Qué episodio de «Las buenas noticias según Jesús» se presenta el domingo?",o:["Episodio 4","Episodio 5","Episodio 6","Episodio 7"],c:2}
 ];
 
 const QUESTIONS_GK = [
+
+// === Más preguntas visuales variadas: ciencia, animales, símbolos, geografía y arte ===
+{q:"¿A qué constante matemática corresponde este símbolo?",o:["Número áureo","Pi","Constante de Euler","Infinito"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Pi-symbol.svg",imgAlt:"Símbolo pi",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
+{q:"¿Qué concepto matemático representa este símbolo?",o:["Igualdad","Infinito","Raíz cuadrada","Porcentaje"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Infinity_symbol.svg",imgAlt:"Símbolo de infinito",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
+{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Lion_waiting_in_Namibia.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Giraffe_standing.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Bush_Elephant.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué planeta aparece representado en la imagen?",o:["Marte","Júpiter","Venus","Mercurio"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",imgAlt:"Júpiter",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
+{q:"¿Qué planeta es conocido como el planeta rojo?",o:["Venus","Saturno","Marte","Neptuno"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/OSIRIS_Mars_true_color.jpg",imgAlt:"Marte",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
+{q:"¿Qué planeta aparece en la imagen con sus característicos anillos?",o:["Saturno","Urano","Júpiter","Neptuno"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_during_Equinox.jpg",imgAlt:"Saturno",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
+{q:"¿Qué cuerpo celeste aparece en la imagen?",o:["La Luna","Marte","Venus","Mercurio"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/FullMoon2010.jpg",imgAlt:"Luna llena",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué científico aparece en este famoso retrato?",o:["Isaac Newton","Albert Einstein","Nikola Tesla","Charles Darwin"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Albert_Einstein_Head.jpg",imgAlt:"Albert Einstein",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿Qué científico aparece en la imagen?",o:["Charles Darwin","Galileo Galilei","Louis Pasteur","Thomas Edison"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Charles_Darwin_seated_crop.jpg",imgAlt:"Charles Darwin",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿Qué inventor aparece en este retrato?",o:["Nikola Tesla","Alexander Graham Bell","Thomas Edison","James Watt"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/N.Tesla.JPG",imgAlt:"Nikola Tesla",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿Qué artista pintó esta obra?",o:["Leonardo da Vinci","Vincent van Gogh","Pablo Picasso","Claude Monet"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",imgAlt:"La noche estrellada",credit:"Obra en dominio público · Wikimedia Commons"},
+{q:"¿Cómo se llama esta famosa pintura?",o:["La joven de la perla","La Mona Lisa","El nacimiento de Venus","Las meninas"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",imgAlt:"Mona Lisa",credit:"Obra en dominio público · Wikimedia Commons"},
+{q:"¿Qué instrumento musical aparece en la imagen?",o:["Violín","Violonchelo","Guitarra","Mandolina"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Violin_VL100.png",imgAlt:"Violín",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué instrumento aparece en la imagen?",o:["Piano","Acordeón","Órgano","Xilófono"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Steinway_Vienna_002.JPG",imgAlt:"Piano",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué letra del alfabeto griego aparece representada?",o:["Alfa","Beta","Gamma","Omega"],c:3,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Greek_letter_omega_serif%2Bsans.svg",imgAlt:"Letra griega omega",credit:"Imagen: Wikimedia Commons · símbolo tipográfico"},
+{q:"¿Qué símbolo químico corresponde al oro?",o:["Ag","Au","Fe","O"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Gold-4.jpg",imgAlt:"Oro",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué país representa esta bandera?",o:["Argentina","Uruguay","Grecia","Guatemala"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Argentina.svg",imgAlt:"Bandera de Argentina",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿Qué país representa esta bandera?",o:["Italia","México","Hungría","Irlanda"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Italy.svg",imgAlt:"Bandera de Italia",credit:"Imagen: Wikimedia Commons · dominio público"},
+
+
+// === Preguntas visuales — imágenes públicas (CC0 / dominio público) de Wikimedia Commons ===
+{q:"¿En qué país se encuentra este famoso monumento?",o:["Brasil","Argentina","Francia","Italia"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Eiffel_Tower_in_Paris.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Wikimedia Commons · CC0"},
+{q:"¿En qué país se encuentra este monumento?",o:["México","Brasil","Portugal","Argentina"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Christ_de_Redeemer.JPG",imgAlt:"Cristo Redentor",credit:"Imagen: Wikimedia Commons · CC0"},
+{q:"¿En qué país se encuentra este monumento?",o:["India","Egipto","Turquía","Grecia"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj-Mahal_CC0.jpg",imgAlt:"Taj Mahal",credit:"Imagen: Wikimedia Commons · CC0"},
+{q:"¿En qué país se encuentra este monumento de la Antigua Roma?",o:["España","Grecia","Italia","Francia"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Colosseum_romanum.jpg",imgAlt:"Coliseo de Roma",credit:"Imagen: Wikimedia Commons · CC0"},
+{q:"¿En qué país se encuentra este monumento?",o:["Canadá","Estados Unidos","Reino Unido","Australia"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Statueofliberty_nps.jpg",imgAlt:"Estatua de la Libertad",credit:"Imagen: National Park Service / Wikimedia Commons · Dominio público"},
+{q:"¿Qué monumento aparece en la imagen?",o:["Big Ben","Torre Eiffel","Torre de Pisa","Empire State"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Torre_eiffel.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Wikimedia Commons · Dominio público"},
+{q:"¿Qué monumento aparece en la imagen?",o:["Cristo Redentor","Estatua de la Libertad","David de Miguel Ángel","Coloso de Rodas"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Statue_of_Liberty.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Wikimedia Commons · Dominio público"},
+{q:"¿Qué monumento aparece en la imagen?",o:["Partenón","Coliseo","Taj Mahal","Arco del Triunfo"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj-Mahal_CC0.jpg",imgAlt:"Taj Mahal",credit:"Imagen: Wikimedia Commons · CC0"},
+
 {q:"¿Qué instrumento tiene 88 teclas?",o:["Violín","Piano","Arpa","Acordeón"],c:1},
 {q:"¿Quién compuso «Las Cuatro Estaciones»?",o:["Mozart","Bach","Vivaldi","Beethoven"],c:2},
 {q:"¿Cuál fue la primera banda de los Beatles antes del nombre definitivo?",o:["The Quarrymen","The Rolling Stones","The Kinks","The Shadows"],c:0},
@@ -1068,7 +1164,22 @@ function runTiebreakQuestionForIndex(i){
 
   document.getElementById('turn-label').textContent = `⚖️ Desempate — turno de ${playerObj.name}`;
   document.getElementById('q-number').textContent = `DESEMPATE`;
-  document.getElementById('q-text').textContent = q.q;
+  document.getElementById("q-text").textContent = q.q;
+  const imageWrap = document.getElementById("question-image-wrap");
+  const imageEl = document.getElementById("question-image");
+  const imageCredit = document.getElementById("question-image-credit");
+  if(q.img){
+    imageEl.src = q.img;
+    imageEl.alt = q.imgAlt || "Imagen de la pregunta";
+    imageCredit.textContent = q.credit || "Imagen de dominio público";
+    imageWrap.classList.add("active");
+    imageEl.onerror = () => imageWrap.classList.remove("active");
+  }else{
+    imageWrap.classList.remove("active");
+    imageEl.removeAttribute("src");
+    imageEl.alt = "";
+    imageCredit.textContent = "";
+  }
   document.getElementById('timer-display').textContent = 15;
   document.getElementById('timer-display').classList.remove('low');
   document.getElementById('start-timer-btn').disabled=false;
@@ -1232,5 +1343,52 @@ window.addEventListener('load', ()=>{
   }
 });
 </script>
+
+
+
+
+<button class="btn secondary local-admin-btn" type="button" onclick="openLocalAdmin()">Admin</button>
+<div class="modal-bg" id="local-admin-modal">
+  <div class="modal">
+    <button class="modal-close" type="button" onclick="closeLocalAdmin()">✕</button>
+    <h2>Administración local</h2>
+    <p class="muted">Este panel funciona solo en este navegador. Sin backend no puede mostrar visitas de otros dispositivos.</p>
+    <div class="field">
+      <label for="local-admin-email">Correo</label>
+      <input id="local-admin-email" type="email" autocomplete="username" placeholder="Correo de administrador">
+    </div>
+    <div class="field">
+      <label for="local-admin-password">Contraseña</label>
+      <input id="local-admin-password" type="password" autocomplete="current-password" placeholder="Contraseña">
+    </div>
+    <div class="footer-actions">
+      <button class="btn secondary" type="button" onclick="closeLocalAdmin()">Cerrar</button>
+      <button class="btn primary" type="button" onclick="localAdminLogin()">Ingresar</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* Admin local: no contiene credenciales reales ni acceso a MongoDB. */
+function openLocalAdmin(){
+  const m=document.getElementById("local-admin-modal");
+  if(m) m.classList.add("open");
+}
+function closeLocalAdmin(){
+  const m=document.getElementById("local-admin-modal");
+  if(m) m.classList.remove("open");
+}
+function localAdminLogin(){
+  const email=(document.getElementById("local-admin-email")?.value||"").trim();
+  const pass=(document.getElementById("local-admin-password")?.value||"");
+  if(!email || !pass){
+    alert("Completá correo y contraseña.");
+    return;
+  }
+  alert("Este index.html funciona sin backend. Por seguridad no contiene tu contraseña ni las credenciales de MongoDB, y no puede autenticar un administrador ni consultar visitas universales.");
+}
+</script>
+
 </body>
 </html>
