@@ -432,6 +432,7 @@
     <div class="footer-actions">
       <span class="muted" id="game-status"></span>
       <button class="btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Siguiente pregunta →</button>
+      <button class="btn secondary" id="finish-early-btn" type="button" onclick="confirmFinishEarly()">⏹ Finalizar juego</button>
     </div>
   </div>
 </div>
@@ -651,7 +652,7 @@ const QUESTIONS_GK = [
 {q:"¿Qué planeta aparece representado en la imagen?",o:["Marte","Júpiter","Venus","Mercurio"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",imgAlt:"Júpiter",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta es conocido como el planeta rojo?",o:["Venus","Saturno","Marte","Neptuno"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/OSIRIS_Mars_true_color.jpg",imgAlt:"Marte",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta aparece en la imagen con sus característicos anillos?",o:["Saturno","Urano","Júpiter","Neptuno"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_during_Equinox.jpg",imgAlt:"Saturno",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
-{q:"¿Qué cuerpo celeste aparece en la imagen?",o:["La Luna","Marte","Venus","Mercurio"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/FullMoon2010.jpg",imgAlt:"Luna llena",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué cuerpo celeste aparece en la imagen?",o:["La Luna","Marte","Venus","Mercurio"],c:0,img:"https://www.infobae.com/resizer/v2/TN4MYFNVYNEORNWY4E7DVKBV4M.jpg?auth=f8c54c568baaa0641b63a36a10171813b7da437d8f4585fc17bb496942f089ea&smart=true&width=1200&height=900&quality=85",imgAlt:"Luna llena",credit:"Imagen: Wikimedia Commons · licencia libre"},
 {q:"¿Qué científico aparece en este famoso retrato?",o:["Isaac Newton","Albert Einstein","Nikola Tesla","Charles Darwin"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Albert_Einstein_Head.jpg",imgAlt:"Albert Einstein",credit:"Imagen: Wikimedia Commons · dominio público"},
 {q:"¿Qué científico aparece en la imagen?",o:["Charles Darwin","Galileo Galilei","Louis Pasteur","Thomas Edison"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Charles_Darwin_seated_crop.jpg",imgAlt:"Charles Darwin",credit:"Imagen: Wikimedia Commons · dominio público"},
 {q:"¿Qué inventor aparece en este retrato?",o:["Nikola Tesla","Alexander Graham Bell","Thomas Edison","James Watt"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/N.Tesla.JPG",imgAlt:"Nikola Tesla",credit:"Imagen: Wikimedia Commons · dominio público"},
@@ -659,9 +660,9 @@ const QUESTIONS_GK = [
 {q:"¿Cómo se llama esta famosa pintura?",o:["La joven de la perla","La Mona Lisa","El nacimiento de Venus","Las meninas"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Mona_Lisa,_by_Leonardo_da_Vinci,_from_C2RMF_retouched.jpg",imgAlt:"Mona Lisa",credit:"Obra en dominio público · Wikimedia Commons"},
 {q:"¿Qué instrumento musical aparece en la imagen?",o:["Violín","Violonchelo","Guitarra","Mandolina"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Violin_VL100.png",imgAlt:"Violín",credit:"Imagen: Wikimedia Commons · licencia libre"},
 {q:"¿Qué instrumento aparece en la imagen?",o:["Piano","Acordeón","Órgano","Xilófono"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Steinway_Vienna_002.JPG",imgAlt:"Piano",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué letra del alfabeto griego aparece representada?",o:["Alfa","Beta","Gamma","Omega"],c:3,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Greek_letter_omega_serif%2Bsans.svg",imgAlt:"Letra griega omega",credit:"Imagen: Wikimedia Commons · símbolo tipográfico"},
-{q:"¿Qué símbolo químico corresponde al oro?",o:["Ag","Au","Fe","O"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Gold-4.jpg",imgAlt:"Oro",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué país representa esta bandera?",o:["Argentina","Uruguay","Grecia","Guatemala"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Argentina.svg",imgAlt:"Bandera de Argentina",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿Qué letra del alfabeto griego aparece representada?",o:["Alfa","Beta","Gamma","Omega"],c:3,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrQxUwcuepvJWPMRtH-dpxL2TqKqVJLz8FkF1q5f3U3Q&s=10",imgAlt:"Letra griega omega",credit:"Imagen: Wikimedia Commons · símbolo tipográfico"},
+{q:"¿Qué símbolo químico corresponde al oro?",o:["Ag","Au","Fe","O"],c:1,img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGAHLJ1mvieb3_pBqVkxkU3xrNWGgjeHkSuTDtJnKxng&s=10",imgAlt:"Oro",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué país representa esta bandera?",o:["Argentina","Uruguay","Grecia","Guatemala"],c:0,img:"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/Flag_of_Argentina.svg/1280px-Flag_of_Argentina.svg.png?utm_source=es.wikipedia.org&utm_campaign=index&utm_content=thumbnail",imgAlt:"Bandera de Argentina",credit:"Imagen: Wikimedia Commons · dominio público"},
 {q:"¿Qué país representa esta bandera?",o:["Italia","México","Hungría","Irlanda"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Flag_of_Italy.svg",imgAlt:"Bandera de Italia",credit:"Imagen: Wikimedia Commons · dominio público"},
 
 
@@ -1468,6 +1469,31 @@ function localAdminLogin(){
     return;
   }
   alert("Este index.html funciona sin backend. Por seguridad no contiene tu contraseña ni las credenciales de MongoDB, y no puede autenticar un administrador ni consultar visitas universales.");
+}
+</script>
+
+
+<script>
+/* === Finalización anticipada === */
+function confirmFinishEarly(){
+  const ok = window.confirm("¿Querés finalizar esta partida y volver al inicio? El progreso de esta partida se perderá.");
+  if(!ok) return;
+  try{
+    clearInterval(timerInterval);
+    if(typeof state !== "undefined"){
+      state.timerRunning=false;
+      state.answered=false;
+      state.tiebreak=null;
+    }
+    localStorage.removeItem(STATE_KEY);
+  }catch(_){}
+  // Restablece controles por si se sale durante un desempate.
+  const startBtn=document.getElementById("start-timer-btn");
+  if(startBtn){ startBtn.style.display="inline-block"; startBtn.disabled=false; }
+  const nextBtn=document.getElementById("next-btn");
+  if(nextBtn){ nextBtn.style.display="none"; }
+  if(typeof goTo==="function") goTo("screen-home");
+  else location.reload();
 }
 </script>
 
