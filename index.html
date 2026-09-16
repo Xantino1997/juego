@@ -1395,11 +1395,11 @@ function localAdminLogin(){
 /* === Finalización anticipada === */
 function confirmFinishEarly(){
   const modal=document.getElementById("finish-game-modal");
-  if(modal) modal.classList.add("open");
+  if(modal) modal.classList.add("active");
 }
 function closeFinishGameModal(){
   const modal=document.getElementById("finish-game-modal");
-  if(modal) modal.classList.remove("open");
+  if(modal) modal.classList.remove("active");
 }
 function finishGameEarlyConfirmed(){
   closeFinishGameModal();
