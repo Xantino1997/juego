@@ -309,6 +309,12 @@
   .local-admin-btn{position:fixed;right:12px;bottom:12px;z-index:40;opacity:.42;font-size:11px;padding:7px 10px}
   .local-admin-btn:hover{opacity:1}
 
+
+  /* Corrección imágenes remotas PC + móvil */
+  .question-image-wrap.active{display:block!important;width:100%;max-width:760px;margin:0 auto 18px}
+  .question-image{display:block!important;width:100%!important;max-width:100%;height:auto!important;max-height:420px;object-fit:contain!important;background:#090e25}
+  @media(max-width:560px){.question-image-wrap.active{margin-bottom:14px}.question-image{max-height:280px}}
+
 </style>
 </head>
 <body>
@@ -411,7 +417,7 @@
       </div>
     </div>
     <div class="question-image-wrap" id="question-image-wrap">
-      <img class="question-image" id="question-image" alt="" loading="eager" referrerpolicy="no-referrer">
+      <img class="question-image" id="question-image" alt="" loading="eager">
       <div class="question-image-credit" id="question-image-credit"></div>
     </div>
     <div class="question-box">
@@ -639,9 +645,9 @@ const QUESTIONS_GK = [
 // === Más preguntas visuales variadas: ciencia, animales, símbolos, geografía y arte ===
 {q:"¿A qué constante matemática corresponde este símbolo?",o:["Número áureo","Pi","Constante de Euler","Infinito"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Pi-symbol.svg",imgAlt:"Símbolo pi",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
 {q:"¿Qué concepto matemático representa este símbolo?",o:["Igualdad","Infinito","Raíz cuadrada","Porcentaje"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Infinity_symbol.svg",imgAlt:"Símbolo de infinito",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
-{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20African%20Lion.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Giraffen.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/African%20bush%20elephant.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/e/ea/African_lion_animal.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/6/68/Giraffen.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Elefante.jpg/960px-Elefante.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
 {q:"¿Qué planeta aparece representado en la imagen?",o:["Marte","Júpiter","Venus","Mercurio"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",imgAlt:"Júpiter",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta es conocido como el planeta rojo?",o:["Venus","Saturno","Marte","Neptuno"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/OSIRIS_Mars_true_color.jpg",imgAlt:"Marte",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta aparece en la imagen con sus característicos anillos?",o:["Saturno","Urano","Júpiter","Neptuno"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_during_Equinox.jpg",imgAlt:"Saturno",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
