@@ -639,9 +639,9 @@ const QUESTIONS_GK = [
 // === Más preguntas visuales variadas: ciencia, animales, símbolos, geografía y arte ===
 {q:"¿A qué constante matemática corresponde este símbolo?",o:["Número áureo","Pi","Constante de Euler","Infinito"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Pi-symbol.svg",imgAlt:"Símbolo pi",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
 {q:"¿Qué concepto matemático representa este símbolo?",o:["Igualdad","Infinito","Raíz cuadrada","Porcentaje"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Infinity_symbol.svg",imgAlt:"Símbolo de infinito",credit:"Imagen: Wikimedia Commons · símbolo matemático"},
-{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Lion_waiting_in_Namibia.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Giraffe_standing.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
-{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/African_Bush_Elephant.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Tigre","León","Jaguar","Puma"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/The%20African%20Lion.jpg",imgAlt:"León",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Cebra","Jirafa","Okapi","Antílope"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Giraffen.jpg",imgAlt:"Jirafa",credit:"Imagen: Wikimedia Commons · licencia libre"},
+{q:"¿Qué animal aparece en la imagen?",o:["Elefante africano","Rinoceronte","Hipopótamo","Búfalo"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/African%20bush%20elephant.jpg",imgAlt:"Elefante africano",credit:"Imagen: Wikimedia Commons · licencia libre"},
 {q:"¿Qué planeta aparece representado en la imagen?",o:["Marte","Júpiter","Venus","Mercurio"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Jupiter_and_its_shrunken_Great_Red_Spot.jpg",imgAlt:"Júpiter",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta es conocido como el planeta rojo?",o:["Venus","Saturno","Marte","Neptuno"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/OSIRIS_Mars_true_color.jpg",imgAlt:"Marte",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
 {q:"¿Qué planeta aparece en la imagen con sus característicos anillos?",o:["Saturno","Urano","Júpiter","Neptuno"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Saturn_during_Equinox.jpg",imgAlt:"Saturno",credit:"Imagen: NASA / Wikimedia Commons · dominio público"},
@@ -1173,7 +1173,18 @@ function runTiebreakQuestionForIndex(i){
     imageEl.alt = q.imgAlt || "Imagen de la pregunta";
     imageCredit.textContent = q.credit || "Imagen de dominio público";
     imageWrap.classList.add("active");
-    imageEl.onerror = () => imageWrap.classList.remove("active");
+    imageEl.onerror = () => {
+      imageWrap.classList.add("active");
+      imageEl.style.display = "none";
+      imageCredit.textContent = "No se pudo cargar la imagen. Tocá aquí para abrirla.";
+      imageWrap.style.cursor = "pointer";
+      imageWrap.onclick = () => window.open(q.img, "_blank", "noopener,noreferrer");
+    };
+    imageEl.onload = () => {
+      imageEl.style.display = "block";
+      imageWrap.style.cursor = "";
+      imageWrap.onclick = null;
+    };
   }else{
     imageWrap.classList.remove("active");
     imageEl.removeAttribute("src");
