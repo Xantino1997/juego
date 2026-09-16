@@ -392,7 +392,7 @@
       <li><span class="bullet">•</span><span>Cada jugador tiene 3 comodines para usar <b>una sola vez cada uno</b> en toda su partida: <b>50/50</b> (elimina 2 opciones incorrectas), <b>Preguntar al público</b> (detiene el cronómetro y muestra una encuesta simulada) y <b>Extender tiempo</b> (si el tiempo base es 30s y quedan 15s o menos, suma 30s más; si es 15s y quedan 8s o menos, suma 15s más).</span></li>
       <li><span class="bullet">•</span><span>Un jugador puede <b>retirarse</b> de su partida en cualquier momento y conserva los puntos que ya sumó.</span></li>
       <li><span class="bullet">•</span><span>Las preguntas nunca se repiten entre jugadores dentro de la misma partida.</span></li>
-      <li><span class="bullet">•</span><span>Si al terminar todos los turnos hay <b>empate</b>, se juega un desempate solo entre los empatados: preguntas nuevas, tiempo fijo de <b>15 segundos</b> y <b>sin comodines</b>.</span></li>
+      <li><span class="bullet">•</span><span>Si al terminar todos los turnos hay <b>empate</b>, se juega un desempate solo entre los empatados: 3 preguntas por jugador, <b>20 segundos automáticos</b> por pregunta y <b>sin comodines</b>.</span></li>
       <li><span class="bullet">•</span><span>Al final de cada partida, el <b>ganador</b> queda anotado en la tabla general de campeones.</span></li>
     </ul>
     <div class="footer-actions">
@@ -456,9 +456,9 @@
     <p class="muted" id="tiebreak-who"></p>
     <ul class="rules-list">
       <li><span class="bullet">•</span><span>Se juega una <b>pregunta de desempate</b> entre los jugadores empatados.</span></li>
-      <li><span class="bullet">•</span><span>Tiempo fijo: <b>15 segundos</b>, cronómetro descendente. Sin comodines.</span></li>
-      <li><span class="bullet">•</span><span>El presentador toca "Iniciar tiempo" para arrancar cada ronda de desempate.</span></li>
-      <li><span class="bullet">•</span><span>Si vuelve a haber empate, se repite con una pregunta nueva hasta que quede un ganador.</span></li>
+      <li><span class="bullet">•</span><span>El desempate tiene <b>3 preguntas por jugador</b>. Cada pregunta dura <b>20 segundos</b> y el cronómetro comienza automáticamente.</span></li>
+      <li><span class="bullet">•</span><span>Durante el desempate el presentador <b>solo lee la pregunta</b>: no puede iniciar, pausar ni detener el tiempo.</span></li>
+      <li><span class="bullet">•</span><span>Gana quien consiga <b>más aciertos</b>. Si igualan en aciertos, gana quien tenga <b>menor tiempo promedio de respuesta</b>. Si también empatan exactamente en el promedio, ambos quedan consagrados campeones.</span></li>
     </ul>
     <div class="footer-actions">
       <span></span>
@@ -666,14 +666,11 @@ const QUESTIONS_GK = [
 
 
 // === Preguntas visuales — imágenes públicas (CC0 / dominio público) de Wikimedia Commons ===
-{q:"¿En qué país se encuentra este famoso monumento?",o:["Brasil","Argentina","Francia","Italia"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/The_Eiffel_Tower_in_Paris.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Wikimedia Commons · CC0"},
-{q:"¿En qué país se encuentra este monumento?",o:["México","Brasil","Portugal","Argentina"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Christ_de_Redeemer.JPG",imgAlt:"Cristo Redentor",credit:"Imagen: Wikimedia Commons · CC0"},
-{q:"¿En qué país se encuentra este monumento?",o:["India","Egipto","Turquía","Grecia"],c:0,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj-Mahal_CC0.jpg",imgAlt:"Taj Mahal",credit:"Imagen: Wikimedia Commons · CC0"},
-{q:"¿En qué país se encuentra este monumento de la Antigua Roma?",o:["España","Grecia","Italia","Francia"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Colosseum_romanum.jpg",imgAlt:"Coliseo de Roma",credit:"Imagen: Wikimedia Commons · CC0"},
-{q:"¿En qué país se encuentra este monumento?",o:["Canadá","Estados Unidos","Reino Unido","Australia"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Statueofliberty_nps.jpg",imgAlt:"Estatua de la Libertad",credit:"Imagen: National Park Service / Wikimedia Commons · Dominio público"},
-{q:"¿Qué monumento aparece en la imagen?",o:["Big Ben","Torre Eiffel","Torre de Pisa","Empire State"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Torre_eiffel.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Wikimedia Commons · Dominio público"},
-{q:"¿Qué monumento aparece en la imagen?",o:["Cristo Redentor","Estatua de la Libertad","David de Miguel Ángel","Coloso de Rodas"],c:1,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Statue_of_Liberty.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Wikimedia Commons · Dominio público"},
-{q:"¿Qué monumento aparece en la imagen?",o:["Partenón","Coliseo","Taj Mahal","Arco del Triunfo"],c:2,img:"https://commons.wikimedia.org/wiki/Special:Redirect/file/Taj-Mahal_CC0.jpg",imgAlt:"Taj Mahal",credit:"Imagen: Wikimedia Commons · CC0"},
+{q:"¿En qué país se encuentra este famoso monumento?",o:["Brasil","Argentina","Francia","Italia"],c:2,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/La_tour_Eiffel2013.jpg/960px-La_tour_Eiffel2013.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Dmitriy Tsvetcoff / Wikimedia Commons · CC BY-SA 3.0"},
+{q:"¿En qué país se encuentra este monumento?",o:["México","Brasil","Portugal","Argentina"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Christ_the_redeemer.jpg/960px-Christ_the_redeemer.jpg",imgAlt:"Cristo Redentor",credit:"Imagen: Wikimedia Commons · dominio público"},
+{q:"¿En qué país se encuentra este monumento?",o:["Canadá","Estados Unidos","Reino Unido","Australia"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Statue_of_Liberty_frontal_2_crop.JPG/960px-Statue_of_Liberty_frontal_2_crop.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Daniel Schwen / Wikimedia Commons · licencia libre"},
+{q:"¿Qué monumento aparece en la imagen?",o:["Big Ben","Torre Eiffel","Torre de Pisa","Empire State"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/La_tour_Eiffel2013.jpg/960px-La_tour_Eiffel2013.jpg",imgAlt:"Torre Eiffel",credit:"Imagen: Dmitriy Tsvetcoff / Wikimedia Commons · CC BY-SA 3.0"},
+{q:"¿Qué monumento aparece en la imagen?",o:["Cristo Redentor","Estatua de la Libertad","David de Miguel Ángel","Coloso de Rodas"],c:1,img:"https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Statue_of_Liberty_frontal_2_crop.JPG/960px-Statue_of_Liberty_frontal_2_crop.JPG",imgAlt:"Estatua de la Libertad",credit:"Imagen: Daniel Schwen / Wikimedia Commons · licencia libre"},
 
 {q:"¿Qué instrumento tiene 88 teclas?",o:["Violín","Piano","Arpa","Acordeón"],c:1},
 {q:"¿Quién compuso «Las Cuatro Estaciones»?",o:["Mozart","Bach","Vivaldi","Beethoven"],c:2},
@@ -1137,7 +1134,7 @@ function goToFinal(){
   const maxScore = Math.max(...state.players.map(p=>p.score));
   const tied = state.players.filter(p=>p.score===maxScore);
   if(tied.length>1){
-    state.tiebreak = { names: tied.map(t=>t.name), round:1 };
+    state.tiebreak = { names: tied.map(t=>t.name), round:1, playerIndex:0, questionIndex:0, stats:[], winners:[] };
     saveState();
     document.getElementById('tiebreak-who').textContent = `Empatados con ${maxScore} puntos: ${tied.map(t=>t.name).join(', ')}.`;
     goTo('screen-tiebreak-intro');
@@ -1147,49 +1144,61 @@ function goToFinal(){
 }
 
 let tiebreakResults = [];
+const TIEBREAK_QUESTIONS_PER_PLAYER = 3;
+const TIEBREAK_SECONDS = 20;
+
 function startTiebreakRound(){
   tiebreakResults = [];
+  state.tiebreak.questionIndex = 0;
+  state.tiebreak.playerIndex = 0;
   goTo('screen-game');
-  runTiebreakQuestionForIndex(0);
+  runTiebreakQuestion();
 }
-function runTiebreakQuestionForIndex(i){
+
+function runTiebreakQuestion(){
   const names = state.tiebreak.names;
-  if(i>=names.length){
+  const pi = state.tiebreak.playerIndex || 0;
+  const qi = state.tiebreak.questionIndex || 0;
+
+  if(qi >= TIEBREAK_QUESTIONS_PER_PLAYER){
     evaluateTiebreak();
     return;
   }
-  const playerObj = state.players.find(p=>p.name===names[i]);
+  if(pi >= names.length){
+    state.tiebreak.playerIndex = 0;
+    state.tiebreak.questionIndex = qi + 1;
+    runTiebreakQuestion();
+    return;
+  }
+
+  const playerObj = state.players.find(p=>p.name===names[pi]);
   const q = pickRandomQuestion(state.usedIds);
   if(!q){ evaluateTiebreak(); return; }
+
   state.usedIds.push(q.id);
   state.currentQ = q;
-  state.answered=false;
-  state.timeLeft=15;
-  state.timerRunning=false;
+  state.answered = false;
+  state.timeLeft = TIEBREAK_SECONDS;
+  state.timerRunning = true;
   saveState();
 
-  document.getElementById('turn-label').textContent = `⚖️ Desempate — turno de ${playerObj.name}`;
+  document.getElementById('turn-label').textContent =
+    `⚖️ Desempate — ${playerObj.name} · Pregunta ${qi+1}/${TIEBREAK_QUESTIONS_PER_PLAYER}`;
   document.getElementById('q-number').textContent = `DESEMPATE`;
   document.getElementById("q-text").textContent = q.q;
+
   const imageWrap = document.getElementById("question-image-wrap");
   const imageEl = document.getElementById("question-image");
   const imageCredit = document.getElementById("question-image-credit");
   if(q.img){
     imageEl.src = q.img;
     imageEl.alt = q.imgAlt || "Imagen de la pregunta";
-    imageCredit.textContent = q.credit || "Imagen de dominio público";
+    imageCredit.textContent = q.credit || "Imagen pública";
     imageWrap.classList.add("active");
+    imageEl.style.display = "block";
     imageEl.onerror = () => {
-      imageWrap.classList.add("active");
       imageEl.style.display = "none";
-      imageCredit.textContent = "No se pudo cargar la imagen. Tocá aquí para abrirla.";
-      imageWrap.style.cursor = "pointer";
-      imageWrap.onclick = () => window.open(q.img, "_blank", "noopener,noreferrer");
-    };
-    imageEl.onload = () => {
-      imageEl.style.display = "block";
-      imageWrap.style.cursor = "";
-      imageWrap.onclick = null;
+      imageCredit.textContent = "No se pudo cargar esta imagen.";
     };
   }else{
     imageWrap.classList.remove("active");
@@ -1197,116 +1206,171 @@ function runTiebreakQuestionForIndex(i){
     imageEl.alt = "";
     imageCredit.textContent = "";
   }
-  document.getElementById('timer-display').textContent = 15;
+
+  document.getElementById('timer-display').textContent = TIEBREAK_SECONDS;
   document.getElementById('timer-display').classList.remove('low');
-  document.getElementById('start-timer-btn').disabled=false;
-  document.getElementById('start-timer-btn').textContent='▶ Iniciar tiempo';
+
+  // En desempate el presentador no controla el reloj.
+  const startBtn = document.getElementById('start-timer-btn');
+  startBtn.disabled = true;
+  startBtn.style.display = 'none';
+
   document.getElementById('next-btn').style.display='none';
-  document.getElementById('game-status').textContent='';
-  document.getElementById('jokers-box').innerHTML = '<span class="muted">Sin comodines durante el desempate.</span>';
+  document.getElementById('game-status').textContent='⏱️ El tiempo comenzó automáticamente.';
+  document.getElementById('jokers-box').innerHTML =
+    '<span class="muted">Desempate: 20 segundos automáticos · sin comodines.</span>';
   document.getElementById('audience-box').style.display='none';
   renderScoreboard();
 
   const grid = document.getElementById('options-grid');
   grid.innerHTML='';
   const letters=['A','B','C','D'];
+
+  function finishThisAnswer(correct){
+    if(state.answered) return;
+    state.answered=true;
+    state.timerRunning=false;
+    clearInterval(timerInterval);
+
+    const elapsed = TIEBREAK_SECONDS - Math.max(0,state.timeLeft);
+    tiebreakResults.push({
+      name:playerObj.name,
+      correct:!!correct,
+      elapsed:elapsed,
+      question:qi+1
+    });
+
+    state.tiebreak.playerIndex = pi + 1;
+    saveState();
+
+    const isLast = (qi === TIEBREAK_QUESTIONS_PER_PLAYER-1) && (pi === names.length-1);
+    document.getElementById('next-btn').style.display='inline-block';
+    document.getElementById('next-btn').textContent =
+      isLast ? 'Ver resultado del desempate →' : 'Siguiente pregunta →';
+    document.getElementById('next-btn').onclick = ()=> runTiebreakQuestion();
+  }
+
   q.o.forEach((opt,idx)=>{
-    const div = document.createElement('div');
-    div.className='opt'; div.id='opt-'+idx;
-    div.innerHTML = `<span class="letter">${letters[idx]}</span><span>${opt}</span>`;
-    div.onclick = ()=>{
+    const div=document.createElement('div');
+    div.className='opt';
+    div.id='opt-'+idx;
+    div.innerHTML=`<span class="letter">${letters[idx]}</span><span>${opt}</span>`;
+    div.onclick=()=>{
       if(state.answered) return;
-      pauseTimer();
-      state.answered=true;
-      const correctIdx = q.c;
+      const correctIdx=q.c;
       document.querySelectorAll('.opt').forEach((el,k)=>{
         el.classList.add('disabled');
         if(k===correctIdx) el.classList.add('correct');
         if(k===idx && idx!==correctIdx) el.classList.add('wrong');
       });
-      tiebreakResults.push({name:playerObj.name, correct: idx===correctIdx, timeLeft: state.timeLeft});
-      document.getElementById('next-btn').style.display='inline-block';
-      document.getElementById('next-btn').textContent = (i+1<names.length) ? `Siguiente: ${names[i+1]} →` : 'Ver resultado del desempate →';
-      document.getElementById('next-btn').onclick = ()=> runTiebreakQuestionForIndex(i+1);
-      saveState();
+      document.getElementById('game-status').textContent =
+        idx===correctIdx ? '✓ Correcto' : '✗ Incorrecto';
+      finishThisAnswer(idx===correctIdx);
     };
     grid.appendChild(div);
   });
-  timerInterval && clearInterval(timerInterval);
-  const startBtn = document.getElementById('start-timer-btn');
-  startBtn.onclick = ()=>{
-    if(state.timerRunning || state.answered) return;
-    state.timerRunning=true;
-    startBtn.disabled=true; startBtn.textContent='Corriendo...';
-    timerInterval = setInterval(()=>{
-      state.timeLeft--;
-      document.getElementById('timer-display').textContent = Math.max(state.timeLeft,0);
-      if(state.timeLeft<=5) document.getElementById('timer-display').classList.add('low');
-      if(state.timeLeft<=0){
-        clearInterval(timerInterval); state.timerRunning=false;
-        if(!state.answered){
-          state.answered=true;
-          const correctIdx = q.c;
-          document.querySelectorAll('.opt').forEach((el,k)=>{
-            el.classList.add('disabled');
-            if(k===correctIdx) el.classList.add('correct');
-          });
-          tiebreakResults.push({name:playerObj.name, correct:false, timeLeft:0});
-          document.getElementById('next-btn').style.display='inline-block';
-          document.getElementById('next-btn').textContent = (i+1<names.length) ? `Siguiente: ${names[i+1]} →` : 'Ver resultado del desempate →';
-          document.getElementById('next-btn').onclick = ()=> runTiebreakQuestionForIndex(i+1);
-        }
-      }
-    },1000);
-  };
-}
-function evaluateTiebreak(){
-  const correctOnes = tiebreakResults.filter(r=>r.correct);
-  if(correctOnes.length===1){
-    finishGame(correctOnes[0].name);
-    return;
-  }
-  if(correctOnes.length>1){
-    correctOnes.sort((a,b)=>b.timeLeft-a.timeLeft);
-    if(correctOnes[0].timeLeft > correctOnes[1].timeLeft){
-      finishGame(correctOnes[0].name);
-      return;
+
+  clearInterval(timerInterval);
+  timerInterval=setInterval(()=>{
+    if(state.answered){ clearInterval(timerInterval); return; }
+    state.timeLeft--;
+    const td=document.getElementById('timer-display');
+    td.textContent=Math.max(state.timeLeft,0);
+    if(state.timeLeft<=5) td.classList.add('low');
+
+    if(state.timeLeft<=0){
+      clearInterval(timerInterval);
+      state.timerRunning=false;
+      const correctIdx=q.c;
+      document.querySelectorAll('.opt').forEach((el,k)=>{
+        el.classList.add('disabled');
+        if(k===correctIdx) el.classList.add('correct');
+      });
+      document.getElementById('game-status').textContent='⏰ Tiempo agotado.';
+      finishThisAnswer(false);
     }
-    // sigue empatado entre los más rápidos con igual tiempo -> nueva ronda solo entre ellos
-    const stillTied = correctOnes.filter(r=>r.timeLeft===correctOnes[0].timeLeft).map(r=>r.name);
-    state.tiebreak.names = stillTied;
-    document.getElementById('tiebreak-who').textContent = `Sigue el empate entre: ${stillTied.join(', ')}. Nueva pregunta de desempate.`;
-    goTo('screen-tiebreak-intro');
-    return;
-  }
-  // nadie acertó -> se repite la ronda con los mismos jugadores
-  document.getElementById('tiebreak-who').textContent = `Nadie acertó — se repite el desempate entre: ${state.tiebreak.names.join(', ')}.`;
-  goTo('screen-tiebreak-intro');
+  },1000);
 }
 
-function finishGame(tiebreakWinnerName){
+function evaluateTiebreak(){
+  clearInterval(timerInterval);
+  state.timerRunning=false;
+
+  const stats=state.tiebreak.names.map(name=>{
+    const rs=tiebreakResults.filter(r=>r.name===name);
+    const correct=rs.filter(r=>r.correct);
+    const score=correct.length;
+    // Para el promedio cuentan las respuestas correctas; si no acertó ninguna, queda en 20 s.
+    const avg=correct.length
+      ? correct.reduce((sum,r)=>sum+r.elapsed,0)/correct.length
+      : TIEBREAK_SECONDS;
+    return {name,score,avg};
+  });
+
+  const bestScore=Math.max(...stats.map(x=>x.score));
+  const scoreLeaders=stats.filter(x=>x.score===bestScore);
+  const bestAvg=Math.min(...scoreLeaders.map(x=>x.avg));
+  const winners=scoreLeaders.filter(x=>Math.abs(x.avg-bestAvg)<0.001).map(x=>x.name);
+
+  state.tiebreak.stats=stats;
+  state.tiebreak.winners=winners;
+  saveState();
+  finishGame(winners);
+}
+
+function finishGame(tiebreakWinners){
   goTo('screen-final');
-  const sorted = [...state.players].sort((a,b)=>b.score-a.score);
-  let winner = sorted[0];
-  if(tiebreakWinnerName){
-    winner = state.players.find(p=>p.name===tiebreakWinnerName);
+  document.getElementById('start-timer-btn').style.display='inline-block';
+
+  const sorted=[...state.players].sort((a,b)=>b.score-a.score);
+  let winnerNames=[];
+
+  if(Array.isArray(tiebreakWinners) && tiebreakWinners.length){
+    winnerNames=tiebreakWinners;
+  }else if(typeof tiebreakWinners==='string' && tiebreakWinners){
+    winnerNames=[tiebreakWinners];
+  }else{
+    const maxScore=Math.max(...state.players.map(p=>p.score));
+    winnerNames=state.players.filter(p=>p.score===maxScore).map(p=>p.name);
   }
-  const list = document.getElementById('final-list');
-  const medals = ['🥇','🥈','🥉','🎖️'];
-  list.innerHTML = sorted.map((p,i)=>{
-    const isWinner = p.name===winner.name;
+
+  const list=document.getElementById('final-list');
+  const medals=['🥇','🥈','🥉','🎖️'];
+
+  let tieSummary='';
+  if(state.tiebreak && Array.isArray(state.tiebreak.stats)){
+    tieSummary=`<div class="question-box" style="margin-bottom:16px">
+      <div style="font-weight:800;margin-bottom:8px">⚖️ Resultado del desempate</div>
+      ${state.tiebreak.stats.map(x=>
+        `<div style="display:flex;justify-content:space-between;gap:12px;padding:5px 0">
+          <span>${x.name}</span>
+          <span><b>${x.score}/${TIEBREAK_QUESTIONS_PER_PLAYER}</b> · promedio ${x.avg.toFixed(1)} s</span>
+        </div>`
+      ).join('')}
+    </div>`;
+  }
+
+  list.innerHTML=tieSummary+sorted.map((p,i)=>{
+    const isWinner=winnerNames.includes(p.name);
     return `<div class="final-row ${isWinner?'winner':''}">
-      <span><span class="medal">${medals[i]||''}</span>${p.name}${isWinner?' — 🏆 Campeón/a':''}${p.retired?' <span class="badge">retirado</span>':''}</span>
+      <span><span class="medal">${isWinner?'🥇':(medals[i]||'')}</span>${p.name}${isWinner?' — 🏆 Campeón/a':''}${p.retired?' <span class="badge">retirado</span>':''}</span>
       <span class="pts">${p.score}</span>
     </div>`;
   }).join('');
 
-  addToHistory({
-    name: winner.name,
-    score: winner.score,
-    mode: state.mode==='tj' ? 'Testigos de Jehová' : 'Conocimiento general',
-    date: new Date().toLocaleDateString('es-AR')
+  const date=new Date().toLocaleDateString('es-AR');
+  winnerNames.forEach(name=>{
+    const winner=state.players.find(p=>p.name===name);
+    if(winner){
+      addToHistory({
+        name:winner.name,
+        score:winner.score,
+        mode:state.mode==='tj' ? 'Testigos de Jehová' : 'Conocimiento general',
+        date
+      });
+    }
   });
+
   localStorage.removeItem(STATE_KEY);
 }
 
